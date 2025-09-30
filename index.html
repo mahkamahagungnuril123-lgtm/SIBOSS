@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIBOSS - Terminal Operasional</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --glow-color: #00ffff;
+            --dark-bg: #030712;
+            --light-bg: #111827;
+            --text-color: #f9fafb;
+            --accent-color: #ff00c1;
+        }
+        
+        body {
+            /* Warna background body sengaja dibuat gelap total untuk vanta.js */
+            background-color: #000000;
+            color: var(--text-color);
+            font-family: 'Roboto Mono', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            position: relative;
+        }
+
+        /* --- BACKGROUND 3D BARU MENGGUNAKAN VANTA.JS --- */
+        #vanta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Diletakkan di lapisan paling belakang */
+        }
+        /* --- AKHIR BAGIAN BACKGROUND --- */
+        
+        .top-left-brand {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 2.2rem;
+            color: var(--glow-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            z-index: 1000;
+            animation: pulseGlow 5s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--glow-color), 0 0 15px var(--glow-color);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* Tambahkan background transparan agar efek vanta terlihat */
+            background-color: rgba(3, 7, 18, 0.5); 
+        }
+
+        .page.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .page.glitch-out {
+            animation: glitchOut 0.8s forwards;
+        }
+
+        @keyframes glitchOut {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0; visibility: hidden; pointer-events: none; }
+        }
+        
+        .page.glitch-in {
+            animation: glitchIn 0.8s forwards;
+            opacity: 0;
+        }
+
+        @keyframes glitchIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; visibility: visible; pointer-events: auto; }
+        }
+
+        .header-box {
+            border: 1px solid var(--glow-color);
+            padding: 0;
+            margin-bottom: 50px;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden; 
+            background: linear-gradient(45deg, #030712, #111827, #005f5f, #111827, #030712);
+            background-size: 400% 400%;
+            animation: animateGradient 10s ease infinite;
+            max-width: 80%;
+        }
+        
+        .marquee-wrapper {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+            padding: 15px 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes animateGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--glow-color);
+            box-shadow: 0 0 10px var(--glow-color);
+            animation: scanline 4s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { top: 0; }
+            50% { top: 95%; }
+            100% { top: 0; }
+        }
+
+        .header-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            text-shadow: 0 0 5px #000;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo-container img {
+            width: 350px; /* LOGO DIPERBESAR */
+            height: auto;
+            margin-bottom: 40px;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px var(--glow-color));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .cybr-btn {
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            color: var(--glow-color);
+            border: 1px solid var(--glow-color);
+            background-color: transparent;
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .cybr-btn:hover {
+            box-shadow: 0 0 35px var(--glow-color);
+            background-color: rgba(0, 255, 255, 0.1);
+            transform: translateY(-5px);
+            color: #fff;
+        }
+
+        .dashboard-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+        
+        .dashboard-card {
+            background: linear-gradient(145deg, #1f2937, #111827);
+            border: 2px solid var(--glow-color);
+            width: 400px;
+            height: 250px;
+            padding: 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: cardFadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .dashboard-content a:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.6);
+            border-color: var(--accent-color);
+        }
+        
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--glow-color);
+            transition: color 0.3s;
+        }
+        
+        .dashboard-card:hover .card-icon { color: var(--accent-color); }
+
+        .dashboard-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--glow-color);
+            transition: color 0.3s;
+        }
+
+        .dashboard-card:hover h2 { color: var(--accent-color); }
+        
+        .dashboard-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        #backBtn {
+            margin-top: 50px;
+            padding: 12px 30px;
+            background-color: var(--light-bg);
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            color: var(--accent-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 193, 0.3);
+        }
+
+        #backBtn:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vanta-bg"></div>
+
+    <div class="top-left-brand">SIBOSS</div>
+
+    <div class="container">
+        
+        <div id="login-page" class="page">
+            <div class="header-box">
+                <div class="marquee-wrapper">
+                    <span class="header-text">SISTEM INFORMASI BASIS OPERASIONAL SEKRETARIAT // SIBOSS 2025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="header-text">SISTEM INFORMASI BASIS OPERASIONAL SEKRETARIAT // SIBOSS 2025&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+            </div>
+            <div class="logo-container">
+                <img src="LOGO SIBOSS.png" alt="Logo SIBOSS">
+            </div>
+            <button id="loginBtn" class="cybr-btn">
+                AKTIFKAN SISTEM
+            </button>
+        </div>
+
+        <div id="dashboard-page" class="page hidden">
+            <div class="dashboard-content">
+                <a href="https://mahkamahagungnuril123-lgtm.github.io/peminjaman_barang/" target="_blank" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                    <h2>PEMINJAMAN BARANG</h2>
+                    <p>Portal untuk mengajukan dan mengelola peminjaman barang.</p>
+                </a>
+                <a href="https://mahkamahagungnuril123-lgtm.github.io/absensi-kebersihan/" target="_blank" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <h2>PRESENSI KEBERSIHAN</h2>
+                    <p>Portal untuk melakukan presensi dan validasi tugas kebersihan.</p>
+                </a>
+            </div>
+            <button id="backBtn">KEMBALI KE GERBANG UTAMA</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script>
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x00ffff,      // Warna titik-titik (glow-color)
+      backgroundColor: 0x0, // Warna latar belakang (hitam)
+      points: 12.00,
+      maxDistance: 22.00,
+      spacing: 18.00
+    })
+    </script>
+    
+    <script>
+        const loginPage = document.getElementById('login-page');
+        const dashboardPage = document.getElementById('dashboard-page');
+        const loginBtn = document.getElementById('loginBtn');
+        const backBtn = document.getElementById('backBtn');
+
+        function applyGlitchTransition(currentPage, nextPage) {
+            currentPage.classList.add('glitch-out');
+            
+            setTimeout(() => {
+                currentPage.classList.add('hidden');
+                currentPage.classList.remove('glitch-out');
+                
+                nextPage.classList.remove('hidden');
+                nextPage.classList.add('glitch-in');
+
+                // Hapus kelas animasi setelah selesai agar tidak mengganggu interaksi
+                setTimeout(() => {
+                    nextPage.classList.remove('glitch-in');
+                }, 800);
+
+            }, 800);
+        }
+
+        loginBtn.addEventListener('click', () => {
+            applyGlitchTransition(loginPage, dashboardPage);
+        });
+
+        backBtn.addEventListener('click', () => {
+            applyGlitchTransition(dashboardPage, loginPage);
+        });
+    </script>
+
+</body>
+</html>
