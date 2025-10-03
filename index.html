@@ -15,10 +15,14 @@
             --light-bg: #111827;
             --text-color: #f9fafb;
             --accent-color: #ff00c1;
+            /* Warna untuk Efek Api yang Paling Agresif */
+            --flame-yellow: #fef08a; /* Bright Yellow */
+            --flame-orange: #f97316; /* Bright Orange */
+            --flame-red: #ef4444; /* Bright Red */
+            --flame-white: #ffffff; /* Inti Api Putih */
         }
         
         body {
-            /* Warna background body sengaja dibuat gelap total untuk vanta.js */
             background-color: #000000;
             color: var(--text-color);
             font-family: 'Roboto Mono', monospace;
@@ -31,38 +35,63 @@
             position: relative;
         }
 
-        /* --- BACKGROUND 3D BARU MENGGUNAKAN VANTA.JS --- */
         #vanta-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Diletakkan di lapisan paling belakang */
+            z-index: -1;
         }
-        /* --- AKHIR BAGIAN BACKGROUND --- */
         
+        /* --- EFEK API BERKOBAR DAN BERGEJOLAK PADA TULISAN SIBOSS --- */
         .top-left-brand {
             position: absolute;
             top: 20px;
             left: 25px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 2.2rem;
-            color: var(--glow-color);
-            text-shadow: 0 0 10px var(--glow-color);
+            font-size: 2.5rem;
+            color: var(--flame-white); /* Warna Inti */
             z-index: 1000;
-            animation: pulseGlow 5s ease-in-out infinite;
+            
+            /* Text-Shadow Multi-Layer yang Agresif */
+            text-shadow: 
+                0 0 4px var(--flame-yellow),
+                0 0 8px var(--flame-orange),
+                0 0 16px var(--flame-red),
+                0 0 30px rgba(255, 69, 0, 0.9); /* Kobaran Terluar */
+            
+            /* Animasi Gabungan: Flicker, Jitter, dan Shimmer */
+            animation: 
+                fireFlicker 0.1s ease-in-out infinite alternate, /* Flicker Cepat Intensitas */
+                fireJitter 0.5s linear infinite, /* Gerakan Acak (Jittering) */
+                fireShimmer 5s linear infinite; /* Shimmer Warna Lambat */
         }
         
-        @keyframes pulseGlow {
-            0%, 100% {
-                text-shadow: 0 0 10px var(--glow-color), 0 0 15px var(--glow-color);
-            }
-            50% {
-                text-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
-            }
+        /* Animasi Flicker Cepat (Intensitas Api) */
+        @keyframes fireFlicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.9; }
+            100% { opacity: 1; }
         }
+        
+        /* Animasi Jittering (Gerakan Acak seperti Api Berkobar Naik) */
+        @keyframes fireJitter {
+            0% { transform: translate(0, 0); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
+            25% { transform: translate(-0.5px, -1px); text-shadow: 0 0 5px var(--flame-yellow), 0 0 18px var(--flame-red); }
+            50% { transform: translate(0.5px, 1px); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
+            75% { transform: translate(-1px, 0.5px); text-shadow: 0 0 6px var(--flame-yellow), 0 0 20px var(--flame-red); }
+            100% { transform: translate(0, 0); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
+        }
+
+        /* Animasi Warna Lambat */
+        @keyframes fireShimmer {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        /* --- AKHIR EFEK API BERKOBAR --- */
+
 
         .container {
             position: relative;
@@ -82,7 +111,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* Tambahkan background transparan agar efek vanta terlihat */
             background-color: rgba(3, 7, 18, 0.5); 
         }
 
@@ -172,7 +200,7 @@
         }
         
         .logo-container img {
-            width: 350px; /* LOGO DIPERBESAR */
+            width: 350px;
             height: auto;
             margin-bottom: 40px;
             animation: float 6s ease-in-out infinite;
@@ -350,8 +378,8 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0x00ffff,      // Warna titik-titik (glow-color)
-      backgroundColor: 0x0, // Warna latar belakang (hitam)
+      color: 0x00ffff,
+      backgroundColor: 0x0,
       points: 12.00,
       maxDistance: 22.00,
       spacing: 18.00
@@ -390,6 +418,5 @@
             applyGlitchTransition(dashboardPage, loginPage);
         });
     </script>
-
 </body>
 </html>
