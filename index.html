@@ -98,6 +98,7 @@
             box-sizing: border-box;
         }
 
+        /* PERUBAHAN: Efek Glassmorphism ditambahkan */
         .page {
             position: absolute;
             width: 100%;
@@ -106,7 +107,10 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(3, 7, 18, 0.5); 
+            background-color: rgba(3, 7, 18, 0.6); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); /* For Safari */
+            border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
         .page.hidden {
@@ -224,6 +228,12 @@
             color: #fff;
         }
 
+        /* PERUBAHAN: Efek tombol saat ditekan */
+        .cybr-btn:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
         .dashboard-content {
             display: flex;
             justify-content: center;
@@ -236,8 +246,8 @@
         .dashboard-card {
             background: linear-gradient(145deg, #1f2937, #111827);
             border: 2px solid var(--glow-color);
-            width: 450px;      /* DIUBAH: dari 400px */
-            height: 300px;     /* DIUBAH: dari 250px */
+            width: 450px;
+            height: 300px;
             max-width: 90%;
             padding: 30px;
             border-radius: 8px;
@@ -271,7 +281,7 @@
         }
         
         .card-icon {
-            font-size: 4.5rem; /* DIUBAH: dari 4rem */
+            font-size: 4.5rem;
             margin-bottom: 20px;
             color: var(--glow-color);
             transition: color 0.3s;
@@ -281,8 +291,8 @@
 
         .dashboard-card h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;   /* DIUBAH: dari 1.8rem */
-            margin-bottom: 15px; /* DIUBAH: dari 10px */
+            font-size: 2rem;
+            margin-bottom: 15px;
             color: var(--glow-color);
             transition: color 0.3s;
             text-align: center;
@@ -315,16 +325,46 @@
             color: var(--dark-bg);
             box-shadow: 0 0 25px var(--accent-color);
         }
+        
+        #backBtn:active {
+            transform: scale(0.98);
+        }
 
-        /* --- PERBAIKAN UNTUK TAMPILAN MOBILE --- */
-        @media (max-width: 600px) {
+        /* --- PERBAIKAN TOTAL UNTUK TAMPILAN MOBILE --- */
+        @media (max-width: 768px) {
+            body {
+                text-align: center; /* Membantu konten agar lebih mudah di-center */
+            }
+
+            .container {
+                padding: 20px 15px; /* Memberi ruang napas dari tepi layar */
+            }
+
+            /* PERUBAHAN: Posisi brand SIBOSS di tengah atas untuk mobile */
             .top-left-brand {
                 font-size: 2rem;
-                left: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 30px; /* Jarak dari atas layar */
+            }
+            
+            /* PERUBAHAN: Memberi ruang untuk judul SIBOSS di atas */
+            #login-page {
+                padding-top: 80px;
+                justify-content: center;
+            }
+
+            .header-box {
+                margin-bottom: 40px;
             }
 
             .header-text {
                 font-size: 1rem;
+            }
+
+            .logo-container img {
+                max-width: 280px; /* Sedikit lebih kecil agar proporsional */
+                margin-bottom: 40px;
             }
 
             .cybr-btn {
@@ -334,24 +374,25 @@
 
             .dashboard-content {
                 flex-direction: column;
-                gap: 25px;
+                gap: 30px;
                 padding-top: 20px;
                 padding-bottom: 20px;
             }
 
             .dashboard-card {
                 height: auto;
-                min-height: 240px; /* DIUBAH: dari 220px */
+                min-height: 240px;
+                width: 100%; /* Memenuhi lebar container */
             }
             
             .dashboard-card h2 {
-                font-size: 1.6rem; /* DIUBAH: dari 1.5rem */
+                font-size: 1.6rem;
             }
             .dashboard-card p {
-                font-size: 0.95rem; /* DIUBAH: dari 0.9rem */
+                font-size: 0.95rem;
             }
             .card-icon {
-                font-size: 3.5rem; /* DIUBAH: dari 3rem */
+                font-size: 3.5rem;
             }
 
             #backBtn {
