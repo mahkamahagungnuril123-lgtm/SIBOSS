@@ -55,28 +55,24 @@
             color: var(--flame-white); /* Warna Inti */
             z-index: 1000;
             
-            /* Text-Shadow Multi-Layer yang Agresif */
             text-shadow: 
                 0 0 4px var(--flame-yellow),
                 0 0 8px var(--flame-orange),
                 0 0 16px var(--flame-red),
-                0 0 30px rgba(255, 69, 0, 0.9); /* Kobaran Terluar */
+                0 0 30px rgba(255, 69, 0, 0.9);
             
-            /* Animasi Gabungan: Flicker, Jitter, dan Shimmer */
             animation: 
-                fireFlicker 0.1s ease-in-out infinite alternate, /* Flicker Cepat Intensitas */
-                fireJitter 0.5s linear infinite, /* Gerakan Acak (Jittering) */
-                fireShimmer 5s linear infinite; /* Shimmer Warna Lambat */
+                fireFlicker 0.1s ease-in-out infinite alternate,
+                fireJitter 0.5s linear infinite,
+                fireShimmer 5s linear infinite;
         }
         
-        /* Animasi Flicker Cepat (Intensitas Api) */
         @keyframes fireFlicker {
             0% { opacity: 1; }
             50% { opacity: 0.9; }
             100% { opacity: 1; }
         }
         
-        /* Animasi Jittering (Gerakan Acak seperti Api Berkobar Naik) */
         @keyframes fireJitter {
             0% { transform: translate(0, 0); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
             25% { transform: translate(-0.5px, -1px); text-shadow: 0 0 5px var(--flame-yellow), 0 0 18px var(--flame-red); }
@@ -85,14 +81,11 @@
             100% { transform: translate(0, 0); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
         }
 
-        /* Animasi Warna Lambat */
         @keyframes fireShimmer {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
         }
-        /* --- AKHIR EFEK API BERKOBAR --- */
-
-
+        
         .container {
             position: relative;
             z-index: 3;
@@ -101,6 +94,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         .page {
@@ -120,10 +115,7 @@
             pointer-events: none;
         }
 
-        .page.glitch-out {
-            animation: glitchOut 0.8s forwards;
-        }
-
+        .page.glitch-out { animation: glitchOut 0.8s forwards; }
         @keyframes glitchOut {
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(0.8); opacity: 0; visibility: hidden; pointer-events: none; }
@@ -133,7 +125,6 @@
             animation: glitchIn 0.8s forwards;
             opacity: 0;
         }
-
         @keyframes glitchIn {
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; visibility: visible; pointer-events: auto; }
@@ -150,7 +141,7 @@
             background: linear-gradient(45deg, #030712, #111827, #005f5f, #111827, #030712);
             background-size: 400% 400%;
             animation: animateGradient 10s ease infinite;
-            max-width: 80%;
+            max-width: 90%;
         }
         
         .marquee-wrapper {
@@ -201,6 +192,7 @@
         
         .logo-container img {
             width: 350px;
+            max-width: 80%;
             height: auto;
             margin-bottom: 40px;
             animation: float 6s ease-in-out infinite;
@@ -238,13 +230,15 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 50px;
+            width: 100%;
         }
         
         .dashboard-card {
             background: linear-gradient(145deg, #1f2937, #111827);
             border: 2px solid var(--glow-color);
-            width: 400px;
-            height: 250px;
+            width: 450px;      /* DIUBAH: dari 400px */
+            height: 300px;     /* DIUBAH: dari 250px */
+            max-width: 90%;
             padding: 30px;
             border-radius: 8px;
             text-decoration: none;
@@ -258,6 +252,7 @@
             align-items: center;
             animation: cardFadeIn 0.8s ease-out forwards;
             opacity: 0;
+            box-sizing: border-box;
         }
         
         .dashboard-content a:nth-child(2) {
@@ -265,14 +260,8 @@
         }
 
         @keyframes cardFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .dashboard-card:hover {
@@ -282,7 +271,7 @@
         }
         
         .card-icon {
-            font-size: 4rem;
+            font-size: 4.5rem; /* DIUBAH: dari 4rem */
             margin-bottom: 20px;
             color: var(--glow-color);
             transition: color 0.3s;
@@ -292,10 +281,11 @@
 
         .dashboard-card h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+            font-size: 2rem;   /* DIUBAH: dari 1.8rem */
+            margin-bottom: 15px; /* DIUBAH: dari 10px */
             color: var(--glow-color);
             transition: color 0.3s;
+            text-align: center;
         }
 
         .dashboard-card:hover h2 { color: var(--accent-color); }
@@ -303,6 +293,7 @@
         .dashboard-card p {
             font-size: 1rem;
             line-height: 1.5;
+            text-align: center;
         }
 
         #backBtn {
@@ -323,6 +314,49 @@
             background-color: var(--accent-color);
             color: var(--dark-bg);
             box-shadow: 0 0 25px var(--accent-color);
+        }
+
+        /* --- PERBAIKAN UNTUK TAMPILAN MOBILE --- */
+        @media (max-width: 600px) {
+            .top-left-brand {
+                font-size: 2rem;
+                left: 15px;
+            }
+
+            .header-text {
+                font-size: 1rem;
+            }
+
+            .cybr-btn {
+                font-size: 1rem;
+                padding: 15px 30px;
+            }
+
+            .dashboard-content {
+                flex-direction: column;
+                gap: 25px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .dashboard-card {
+                height: auto;
+                min-height: 240px; /* DIUBAH: dari 220px */
+            }
+            
+            .dashboard-card h2 {
+                font-size: 1.6rem; /* DIUBAH: dari 1.5rem */
+            }
+            .dashboard-card p {
+                font-size: 0.95rem; /* DIUBAH: dari 0.9rem */
+            }
+            .card-icon {
+                font-size: 3.5rem; /* DIUBAH: dari 3rem */
+            }
+
+            #backBtn {
+                margin-top: 30px;
+            }
         }
     </style>
 </head>
@@ -380,8 +414,8 @@
       scaleMobile: 1.00,
       color: 0x00ffff,
       backgroundColor: 0x0,
-      points: 12.00,
-      maxDistance: 22.00,
+      points: 18.00,
+      maxDistance: 30.00,
       spacing: 18.00
     })
     </script>
@@ -402,7 +436,6 @@
                 nextPage.classList.remove('hidden');
                 nextPage.classList.add('glitch-in');
 
-                // Hapus kelas animasi setelah selesai agar tidak mengganggu interaksi
                 setTimeout(() => {
                     nextPage.classList.remove('glitch-in');
                 }, 800);
