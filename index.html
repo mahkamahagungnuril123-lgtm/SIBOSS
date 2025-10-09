@@ -30,7 +30,7 @@
             align-items: center;
             /* PENYEMPURNAAN: Menggunakan unit dvh agar 100% full screen di semua HP */
             height: 100vh; /* Fallback untuk browser lama */
-            height: 100dvh; /* Unit tinggi dinamis yang lebih akurat */
+            height: 100dvh; /* Unit tinggi dinamis yang lebih akurat, akan di-override oleh JS jika perlu */
             overflow: hidden;
             margin: 0;
             position: relative;
@@ -507,5 +507,19 @@
             applyPageTransition(cadanganPage, presensiPage);
         });
     </script>
-</body>
+
+    <script>
+        function setFullHeight() {
+            // Pilih elemen body dan atur tingginya secara eksplisit
+            const body = document.body;
+            body.style.height = window.innerHeight + 'px';
+        }
+
+        // Panggil fungsi ini saat halaman pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', setFullHeight);
+
+        // Panggil juga fungsi ini setiap kali ukuran jendela browser berubah
+        window.addEventListener('resize', setFullHeight);
+    </script>
+    </body>
 </html>
