@@ -49,7 +49,8 @@
             left: 25px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 2.5rem;
+            /* PERUBAHAN MOBILE: Ukuran font disesuaikan agar tidak terlalu besar di HP */
+            font-size: 2rem;
             color: var(--flame-white);
             z-index: 1000;
             text-shadow: 
@@ -98,8 +99,8 @@
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
             padding: 20px;
             box-sizing: border-box;
-            /* PERUBAHAN: Menggunakan 'gap' untuk spasi yang konsisten */
-            gap: 1.5rem;
+            /* PERUBAHAN MOBILE: Menambah jarak antar elemen agar lebih lega di HP */
+            gap: 2rem;
         }
 
         .page.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
@@ -118,7 +119,6 @@
         .header-box {
             border: 1px solid var(--glow-color); 
             padding: 0; 
-            /* margin-bottom dihapus, diganti 'gap' */
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); 
             position: relative; 
             overflow: hidden; 
@@ -140,28 +140,33 @@
         @keyframes scanline { 0% { top: 0; } 50% { top: 95%; } 100% { top: 0; } }
 
         .header-text {
-            font-family: 'Orbitron', sans-serif; font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif; 
+            /* PERUBAHAN MOBILE: Font diperbesar agar mudah terbaca */
+            font-size: 1.3rem;
             color: var(--text-color);
             text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2;
         }
         
         .logo-container {
-            /* PERUBAHAN: margin dipindahkan dari img ke container ini lalu dihapus */
-            line-height: 0; /* Menghilangkan spasi ekstra di bawah gambar */
-        display: flex;
-        justify-content: center;
+            line-height: 0;
+            display: flex;
+            justify-content: center;
         }
 
         .logo-container img {
-            width: 300px;
-            max-width: 80%; height: auto; 
+            /* PERUBAHAN MOBILE: Menggunakan persentase agar logo responsif dan tidak terlalu kecil */
+            width: 70%;
+            max-width: 300px; 
+            height: auto; 
             animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color));
         }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         
         .cybr-btn {
-            font-family: 'Orbitron', sans-serif; cursor: pointer; padding: 15px 40px;
-            font-size: 1rem;
+            font-family: 'Orbitron', sans-serif; cursor: pointer;
+            /* PERUBAHAN MOBILE: Padding dan font disesuaikan agar tombol lebih proporsional */
+            padding: 18px 30px;
+            font-size: 1.1rem;
             color: var(--glow-color); border: 1px solid var(--glow-color);
             background-color: rgba(0, 255, 255, 0.05); position: relative;
             transition: all 0.3s ease; text-transform: uppercase; overflow: hidden;
@@ -229,7 +234,6 @@
         .dashboard-card p { font-size: 0.9rem; line-height: 1.5; text-align: center; }
 
         .back-button {
-            /* margin-top dihapus, diganti 'gap' */
             padding: 12px 30px; background-color: var(--light-bg);
             border: 1px solid var(--accent-color); border-radius: 5px; color: var(--accent-color);
             font-family: 'Orbitron', sans-serif; font-size: 0.9rem; cursor: pointer;
@@ -263,22 +267,29 @@
             height: auto;
         }
         .footer-text {
-            font-size: 0.7rem;
+            /* PERUBAHAN MOBILE: Font diperbesar agar alamat mudah terbaca di HP */
+            font-size: 0.85rem;
             line-height: 1.4;
         }
         .footer-text p {
             margin: 0;
         }
 
-        /* Media Query untuk layar besar (Desktop) */
+        /* =============================================== */
+        /* Media Query untuk layar besar (Desktop)         */
+        /* Gaya di bawah ini hanya aktif di layar >= 768px */
+        /* =============================================== */
         @media (min-width: 768px) {
             .page {
-                /* PERUBAHAN: Spasi 'gap' lebih besar untuk desktop */
                 gap: 2.5rem;
+            }
+            
+            .top-left-brand {
+                /* Mengembalikan ukuran font untuk desktop */
+                font-size: 2.5rem;
             }
 
             .header-box {
-                /* PERUBAHAN: Lebar maksimal agar tidak terlalu panjang */
                 max-width: 900px;
             }
 
@@ -286,7 +297,9 @@
                 font-size: 1.5rem;
             }
             .logo-container img {
+                /* Mengatur ukuran logo khusus untuk desktop */
                 width: 450px;
+                max-width: 450px; /* Menimpa max-width mobile */
             }
             .cybr-btn {
                 font-size: 1.3rem;
@@ -330,7 +343,7 @@
                 width: 55px;
             }
             .footer-text {
-                font-size: 0.8rem;
+                font-size: 0.9rem;
             }
         }
 
