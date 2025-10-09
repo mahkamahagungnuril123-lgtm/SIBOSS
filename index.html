@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIBOSS - Terminal Operasional</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
@@ -96,6 +96,10 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(0, 255, 255, 0.2);
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
+            padding: 20px;
+            box-sizing: border-box;
+            /* PERUBAHAN: Menggunakan 'gap' untuk spasi yang konsisten */
+            gap: 1.5rem;
         }
 
         .page.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
@@ -112,13 +116,20 @@
         }
 
         .header-box {
-            border: 1px solid var(--glow-color); padding: 0; margin-bottom: 50px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); position: relative; overflow: hidden; 
+            border: 1px solid var(--glow-color); 
+            padding: 0; 
+            /* margin-bottom dihapus, diganti 'gap' */
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); 
+            position: relative; 
+            overflow: hidden; 
             background: linear-gradient(45deg, #030712, #111827, #005f5f, #111827, #030712);
-            background-size: 400% 400%; animation: animateGradient 10s ease infinite; max-width: 90%;
+            background-size: 400% 400%; 
+            animation: animateGradient 10s ease infinite; 
+            width: 100%;
+            max-width: 95%;
         }
         
-        .marquee-wrapper { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; padding: 15px 0; }
+        .marquee-wrapper { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; padding: 10px 0; }
         @keyframes marquee { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
         @keyframes animateGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
@@ -129,21 +140,33 @@
         @keyframes scanline { 0% { top: 0; } 50% { top: 95%; } 100% { top: 0; } }
 
         .header-text {
-            font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-color);
+            font-family: 'Orbitron', sans-serif; font-size: 1.2rem;
+            color: var(--text-color);
             text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2;
         }
         
+        .logo-container {
+            /* PERUBAHAN: margin dipindahkan dari img ke container ini lalu dihapus */
+            line-height: 0; /* Menghilangkan spasi ekstra di bawah gambar */
+        display: flex;
+        justify-content: center;
+        }
+
         .logo-container img {
-            width: 350px; max-width: 80%; height: auto; margin-bottom: 40px;
+            width: 300px;
+            max-width: 80%; height: auto; 
             animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color));
         }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         
         .cybr-btn {
-            font-family: 'Orbitron', sans-serif; cursor: pointer; padding: 18px 50px;
-            font-size: 1.3rem; color: var(--glow-color); border: 1px solid var(--glow-color);
+            font-family: 'Orbitron', sans-serif; cursor: pointer; padding: 15px 40px;
+            font-size: 1rem;
+            color: var(--glow-color); border: 1px solid var(--glow-color);
             background-color: rgba(0, 255, 255, 0.05); position: relative;
             transition: all 0.3s ease; text-transform: uppercase; overflow: hidden;
+            width: 80%;
+            max-width: 300px;
         }
 
         .cybr-btn::before {
@@ -163,12 +186,18 @@
 
         .dashboard-content {
             display: flex; justify-content: center; align-items: center;
-            flex-wrap: wrap; gap: 50px; width: 100%;
+            flex-wrap: wrap; gap: 20px;
+            width: 100%;
         }
         
         .dashboard-card {
             background: linear-gradient(145deg, #1f2937, #111827); border: 2px solid var(--glow-color); 
-            width: 450px; height: 300px; max-width: 90%; padding: 30px; border-radius: 8px; 
+            width: 100%;
+            max-width: 400px; 
+            height: auto;
+            min-height: 250px;
+            padding: 20px;
+            border-radius: 8px; 
             text-decoration: none; color: var(--text-color); cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
@@ -180,28 +209,33 @@
         @keyframes cardFadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         
         .dashboard-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5);
             border-color: var(--accent-color);
         }
         
         .card-icon {
-            font-size: 4.5rem; margin-bottom: 20px; color: var(--glow-color); transition: color 0.3s;
+            font-size: 3.5rem;
+            margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s;
         }
         .dashboard-card:hover .card-icon { color: var(--accent-color); }
 
         .dashboard-card h2 {
-            font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif; font-size: 1.5rem;
+             margin-bottom: 10px;
             color: var(--glow-color); transition: color 0.3s; text-align: center;
         }
         .dashboard-card:hover h2 { color: var(--accent-color); }
-        .dashboard-card p { font-size: 1rem; line-height: 1.5; text-align: center; }
+        .dashboard-card p { font-size: 0.9rem; line-height: 1.5; text-align: center; }
 
         .back-button {
-            margin-top: 50px; padding: 12px 30px; background-color: var(--light-bg);
+            /* margin-top dihapus, diganti 'gap' */
+            padding: 12px 30px; background-color: var(--light-bg);
             border: 1px solid var(--accent-color); border-radius: 5px; color: var(--accent-color);
-            font-family: 'Orbitron', sans-serif; font-size: 1rem; cursor: pointer;
+            font-family: 'Orbitron', sans-serif; font-size: 0.9rem; cursor: pointer;
             transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 0, 193, 0.3);
+            width: 80%;
+            max-width: 300px;
         }
         .back-button:hover {
             background-color: var(--accent-color); color: var(--dark-bg);
@@ -211,24 +245,93 @@
         
         .footer {
             position: absolute;
-            bottom: 20px;
-            left: 25px;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            width: 90%;
+            margin: 0 auto;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
+            text-align: center;
+            gap: 10px;
             color: rgba(249, 250, 251, 0.6);
             z-index: 10;
         }
         .footer-logo img {
-            width: 55px;
+            width: 45px;
             height: auto;
         }
         .footer-text {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             line-height: 1.4;
         }
         .footer-text p {
             margin: 0;
+        }
+
+        /* Media Query untuk layar besar (Desktop) */
+        @media (min-width: 768px) {
+            .page {
+                /* PERUBAHAN: Spasi 'gap' lebih besar untuk desktop */
+                gap: 2.5rem;
+            }
+
+            .header-box {
+                /* PERUBAHAN: Lebar maksimal agar tidak terlalu panjang */
+                max-width: 900px;
+            }
+
+            .header-text {
+                font-size: 1.5rem;
+            }
+            .logo-container img {
+                width: 450px;
+            }
+            .cybr-btn {
+                font-size: 1.3rem;
+                padding: 18px 50px;
+                width: auto;
+                max-width: none;
+            }
+            .dashboard-content {
+                gap: 50px;
+                flex-direction: row;
+            }
+            .dashboard-card {
+                width: 450px;
+                height: 300px;
+                padding: 30px;
+            }
+             .card-icon {
+                font-size: 4.5rem;
+            }
+            .dashboard-card h2 {
+                font-size: 2rem;
+            }
+             .dashboard-card p {
+                font-size: 1rem;
+            }
+            .back-button {
+                font-size: 1rem;
+                width: auto;
+                max-width: none;
+            }
+            .footer {
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                gap: 20px;
+                width: auto;
+                left: 25px;
+                bottom: 20px;
+            }
+            .footer-logo img {
+                width: 55px;
+            }
+            .footer-text {
+                font-size: 0.8rem;
+            }
         }
 
     </style>
