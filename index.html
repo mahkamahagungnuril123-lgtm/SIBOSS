@@ -76,6 +76,7 @@
             100% { transform: translate(0, 0); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
         }
         
+        /* PERBAIKAN FINAL: Menghapus padding dari container agar full-width */
         .container {
             position: relative;
             z-index: 3;
@@ -84,8 +85,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
             box-sizing: border-box;
+            /* padding: 15px; <-- INI ADALAH SUMBER MASALAH, SUDAH DIHAPUS */
         }
 
         .page {
@@ -101,9 +102,9 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(0, 255, 255, 0.2);
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
-            padding: 20px;
+            /* Padding dipindahkan ke sini untuk memberi jarak aman bagi KONTEN di dalamnya */
+            padding: 20px 15px; 
             box-sizing: border-box;
-            /* PERBAIKAN: Mengurangi jarak antar elemen di HP */
             gap: 1.5rem;
         }
 
@@ -145,7 +146,6 @@
 
         .header-text {
             font-family: 'Orbitron', sans-serif; 
-            /* PERBAIKAN: Mengurangi ukuran font di HP */
             font-size: 1.1rem;
             color: var(--text-color);
             text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2;
@@ -158,7 +158,6 @@
         }
 
         .logo-container img {
-            /* PERBAIKAN: Mengurangi ukuran logo di HP */
             width: 65%;
             max-width: 240px; 
             height: auto; 
@@ -168,7 +167,6 @@
         
         .cybr-btn {
             font-family: 'Orbitron', sans-serif; cursor: pointer;
-            /* PERBAIKAN: Menyesuaikan ukuran tombol di HP */
             padding: 16px 25px;
             font-size: 1rem;
             color: var(--glow-color); border: 1px solid var(--glow-color);
@@ -251,7 +249,6 @@
         }
         .back-button:active { transform: scale(0.98); }
         
-        /* PERBAIKAN: Menghapus "position: absolute" dari footer untuk mobile */
         .footer {
             display: flex;
             flex-direction: column;
@@ -326,7 +323,6 @@
                 max-width: none;
             }
             
-            /* PERBAIKAN: Mengembalikan "position: absolute" untuk footer HANYA di desktop */
             .footer {
                 position: absolute;
                 bottom: 20px;
