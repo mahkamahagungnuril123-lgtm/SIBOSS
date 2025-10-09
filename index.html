@@ -21,6 +21,11 @@
             --flame-white: #ffffff;
         }
         
+        /* PERBAIKAN: Memastikan html dan body memenuhi layar */
+        html {
+            height: 100%;
+        }
+
         body {
             background-color: #000000;
             color: var(--text-color);
@@ -28,9 +33,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* PENYEMPURNAAN: Menggunakan unit dvh agar 100% full screen di semua HP */
+            /* Menggunakan unit dvh agar 100% full screen di semua HP */
             height: 100vh; /* Fallback untuk browser lama */
-            height: 100dvh; /* Unit tinggi dinamis yang lebih akurat, akan di-override oleh JS jika perlu */
+            height: 100dvh; /* Unit tinggi dinamis yang lebih akurat untuk mobile */
             overflow: hidden;
             margin: 0;
             position: relative;
@@ -508,18 +513,5 @@
         });
     </script>
 
-    <script>
-        function setFullHeight() {
-            // Pilih elemen body dan atur tingginya secara eksplisit
-            const body = document.body;
-            body.style.height = window.innerHeight + 'px';
-        }
-
-        // Panggil fungsi ini saat halaman pertama kali dimuat
-        document.addEventListener('DOMContentLoaded', setFullHeight);
-
-        // Panggil juga fungsi ini setiap kali ukuran jendela browser berubah
-        window.addEventListener('resize', setFullHeight);
-    </script>
     </body>
 </html>
