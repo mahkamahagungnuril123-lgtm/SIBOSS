@@ -347,6 +347,42 @@
             }
         }
 
+        /* =============================================== */
+        /* !!! PERBAIKAN UNTUK TAMPILAN MOBILE !!!         */
+        /* Gaya di bawah ini hanya aktif di layar <= 767px */
+        /* =============================================== */
+        @media (max-width: 767px) {
+            body {
+                /* Izinkan body untuk di-scroll jika konten lebih panjang dari layar */
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .page {
+                 /* Biarkan tinggi halaman menyesuaikan kontennya */
+                height: auto;
+                min-height: 100vh;
+                /* Atur padding agar ada jarak dari atas dan bawah */
+                padding-top: 80px;
+                padding-bottom: 40px;
+                /* Mulai konten dari atas, bukan di tengah vertikal */
+                justify-content: flex-start;
+            }
+
+            .logo-container img {
+                /* Sedikit kecilkan logo agar proporsional */
+                width: 60%;
+            }
+
+            .footer {
+                /* KUNCI PERBAIKAN: Ubah posisi footer agar menjadi bagian dari alur konten */
+                position: static; /* Mengubah dari 'absolute' ke 'static' */
+                margin-top: 2.5rem; /* Beri jarak dari tombol di atasnya */
+                padding-bottom: 20px; /* Jarak aman di bagian paling bawah halaman */
+            }
+        }
+
     </style>
 </head>
 
