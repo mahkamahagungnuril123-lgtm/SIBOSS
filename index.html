@@ -29,7 +29,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Secara default, overflow disembunyikan untuk efek desktop */
             margin: 0;
             position: relative;
         }
@@ -49,7 +49,6 @@
             left: 25px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            /* PERUBAHAN MOBILE: Ukuran font disesuaikan agar tidak terlalu besar di HP */
             font-size: 2rem;
             color: var(--flame-white);
             z-index: 1000;
@@ -99,22 +98,12 @@
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
             padding: 20px;
             box-sizing: border-box;
-            /* PERUBAHAN MOBILE: Menambah jarak antar elemen agar lebih lega di HP */
             gap: 2rem;
         }
 
         .page.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
-        
-        .page.page-effect-out {
-            transform: scale(0.8) rotateZ(-3deg);
-            opacity: 0;
-            filter: blur(4px);
-        }
-        .page.page-effect-in-prepare {
-            transform: scale(1.2) rotateZ(3deg);
-            opacity: 0;
-            filter: blur(4px);
-        }
+        .page.page-effect-out { transform: scale(0.8) rotateZ(-3deg); opacity: 0; filter: blur(4px); }
+        .page.page-effect-in-prepare { transform: scale(1.2) rotateZ(3deg); opacity: 0; filter: blur(4px); }
 
         .header-box {
             border: 1px solid var(--glow-color); 
@@ -141,20 +130,13 @@
 
         .header-text {
             font-family: 'Orbitron', sans-serif; 
-            /* PERUBAHAN MOBILE: Font diperbesar agar mudah terbaca */
             font-size: 1.3rem;
             color: var(--text-color);
             text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2;
         }
         
-        .logo-container {
-            line-height: 0;
-            display: flex;
-            justify-content: center;
-        }
-
+        .logo-container { line-height: 0; display: flex; justify-content: center; }
         .logo-container img {
-            /* PERUBAHAN MOBILE: Menggunakan persentase agar logo responsif dan tidak terlalu kecil */
             width: 70%;
             max-width: 300px; 
             height: auto; 
@@ -164,7 +146,6 @@
         
         .cybr-btn {
             font-family: 'Orbitron', sans-serif; cursor: pointer;
-            /* PERUBAHAN MOBILE: Padding dan font disesuaikan agar tombol lebih proporsional */
             padding: 18px 30px;
             font-size: 1.1rem;
             color: var(--glow-color); border: 1px solid var(--glow-color);
@@ -179,22 +160,14 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transform: skewX(-30deg); transition: left 0.7s ease-in-out;
         }
-
         .cybr-btn:hover::before { left: 150%; }
-        
         .cybr-btn:hover {
             box-shadow: 0 0 40px var(--glow-color); background-color: rgba(0, 255, 255, 0.2);
             transform: translateY(-5px); color: #fff;
         }
-
         .cybr-btn:active { transform: translateY(-2px) scale(0.98); box-shadow: 0 0 20px var(--glow-color); }
 
-        .dashboard-content {
-            display: flex; justify-content: center; align-items: center;
-            flex-wrap: wrap; gap: 20px;
-            width: 100%;
-        }
-        
+        .dashboard-content { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%; }
         .dashboard-card {
             background: linear-gradient(145deg, #1f2937, #111827); border: 2px solid var(--glow-color); 
             width: 100%;
@@ -208,28 +181,17 @@
             box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
             display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;
         }
-        
         .dashboard-content > * { animation: cardFadeIn 0.8s ease-out forwards; opacity: 0; }
         .dashboard-content > *:nth-child(2) { animation-delay: 0.2s; }
         @keyframes cardFadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        
         .dashboard-card:hover {
             transform: translateY(-10px) scale(1.03);
             box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5);
             border-color: var(--accent-color);
         }
-        
-        .card-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s;
-        }
+        .card-icon { font-size: 3.5rem; margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s; }
         .dashboard-card:hover .card-icon { color: var(--accent-color); }
-
-        .dashboard-card h2 {
-            font-family: 'Orbitron', sans-serif; font-size: 1.5rem;
-             margin-bottom: 10px;
-            color: var(--glow-color); transition: color 0.3s; text-align: center;
-        }
+        .dashboard-card h2 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 10px; color: var(--glow-color); transition: color 0.3s; text-align: center; }
         .dashboard-card:hover h2 { color: var(--accent-color); }
         .dashboard-card p { font-size: 0.9rem; line-height: 1.5; text-align: center; }
 
@@ -241,10 +203,7 @@
             width: 80%;
             max-width: 300px;
         }
-        .back-button:hover {
-            background-color: var(--accent-color); color: var(--dark-bg);
-            box-shadow: 0 0 25px var(--accent-color);
-        }
+        .back-button:hover { background-color: var(--accent-color); color: var(--dark-bg); box-shadow: 0 0 25px var(--accent-color); }
         .back-button:active { transform: scale(0.98); }
         
         .footer {
@@ -262,135 +221,60 @@
             color: rgba(249, 250, 251, 0.6);
             z-index: 10;
         }
-        .footer-logo img {
-            width: 45px;
-            height: auto;
-        }
-        .footer-text {
-            /* PERUBAHAN MOBILE: Font diperbesar agar alamat mudah terbaca di HP */
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-        .footer-text p {
-            margin: 0;
-        }
+        .footer-logo img { width: 45px; height: auto; }
+        .footer-text { font-size: 0.85rem; line-height: 1.4; }
+        .footer-text p { margin: 0; }
 
         /* =============================================== */
-        /* Media Query untuk layar besar (Desktop)         */
-        /* Gaya di bawah ini hanya aktif di layar >= 768px */
+        /* Gaya untuk layar besar (Desktop)                */
         /* =============================================== */
         @media (min-width: 768px) {
-            .page {
-                gap: 2.5rem;
-            }
-            
-            .top-left-brand {
-                /* Mengembalikan ukuran font untuk desktop */
-                font-size: 2.5rem;
-            }
-
-            .header-box {
-                max-width: 900px;
-            }
-
-            .header-text {
-                font-size: 1.5rem;
-            }
-            .logo-container img {
-                /* Mengatur ukuran logo khusus untuk desktop */
-                width: 450px;
-                max-width: 450px; /* Menimpa max-width mobile */
-            }
-            .cybr-btn {
-                font-size: 1.3rem;
-                padding: 18px 50px;
-                width: auto;
-                max-width: none;
-            }
-            .dashboard-content {
-                gap: 50px;
-                flex-direction: row;
-            }
-            .dashboard-card {
-                width: 450px;
-                height: 300px;
-                padding: 30px;
-            }
-             .card-icon {
-                font-size: 4.5rem;
-            }
-            .dashboard-card h2 {
-                font-size: 2rem;
-            }
-             .dashboard-card p {
-                font-size: 1rem;
-            }
-            .back-button {
-                font-size: 1rem;
-                width: auto;
-                max-width: none;
-            }
-            .footer {
-                flex-direction: row;
-                text-align: left;
-                align-items: center;
-                gap: 20px;
-                width: auto;
-                left: 25px;
-                bottom: 20px;
-            }
-            .footer-logo img {
-                width: 55px;
-            }
-            .footer-text {
-                font-size: 0.9rem;
-            }
+            .page { gap: 2.5rem; }
+            .top-left-brand { font-size: 2.5rem; }
+            .header-box { max-width: 900px; }
+            .header-text { font-size: 1.5rem; }
+            .logo-container img { width: 450px; max-width: 450px; }
+            .cybr-btn { font-size: 1.3rem; padding: 18px 50px; width: auto; max-width: none; }
+            .dashboard-content { gap: 50px; flex-direction: row; }
+            .dashboard-card { width: 450px; height: 300px; padding: 30px; }
+            .card-icon { font-size: 4.5rem; }
+            .dashboard-card h2 { font-size: 2rem; }
+            .dashboard-card p { font-size: 1rem; }
+            .back-button { font-size: 1rem; width: auto; max-width: none; }
+            .footer { flex-direction: row; text-align: left; align-items: center; gap: 20px; width: auto; left: 25px; bottom: 20px; }
+            .footer-logo img { width: 55px; }
+            .footer-text { font-size: 0.9rem; }
         }
 
         /* =============================================== */
-        /* !!! PERBAIKAN UNTUK TAMPILAN MOBILE !!!         */
-        /* Gaya di bawah ini hanya aktif di layar <= 767px */
+        /* KODE PERBAIKAN KHUSUS UNTUK TAMPILAN MOBILE     */
         /* =============================================== */
         @media (max-width: 767px) {
             body {
-                /* Izinkan body untuk di-scroll jika konten lebih panjang dari layar */
-                height: auto;
-                min-height: 100vh;
+                /* Izinkan scroll vertikal di HP jika kontennya panjang */
                 overflow-y: auto;
             }
-
-            .page {
-                 /* Biarkan tinggi halaman menyesuaikan kontennya */
+            #login-page {
+                /* Khusus halaman login, buat tingginya otomatis menyesuaikan konten */
                 height: auto;
                 min-height: 100vh;
-                /* Atur padding agar ada jarak dari atas dan bawah */
-                padding-top: 80px;
-                padding-bottom: 40px;
-                /* Mulai konten dari atas, bukan di tengah vertikal */
+                 /* Pusatkan konten dari atas ke bawah, bukan di tengah layar */
                 justify-content: flex-start;
+                padding-top: 80px; /* Jarak dari atas */
+                padding-bottom: 40px; /* Jarak di bawah */
             }
-
-            .logo-container img {
-                /* Sedikit kecilkan logo agar proporsional */
-                width: 60%;
-            }
-
             .footer {
-                /* KUNCI PERBAIKAN: Ubah posisi footer agar menjadi bagian dari alur konten */
-                position: static; /* Mengubah dari 'absolute' ke 'static' */
-                margin-top: 2.5rem; /* Beri jarak dari tombol di atasnya */
-                padding-bottom: 20px; /* Jarak aman di bagian paling bawah halaman */
+                /* Pindahkan footer ke alur normal dokumen, tidak lagi melayang */
+                position: static;
+                margin-top: 2rem; /* Beri jarak dari tombol */
             }
         }
-
     </style>
 </head>
 
 <body>
     <div id="vanta-bg"></div>
-
     <div class="top-left-brand">SIBOSS</div>
-
     <div class="container">
         
         <div id="login-page" class="page">
@@ -403,10 +287,7 @@
             <div class="logo-container">
                 <img src="LOGO SIBOSS.png" alt="Logo SIBOSS">
             </div>
-            <button id="loginBtn" class="cybr-btn">
-                AKTIFKAN SISTEM
-            </button>
-
+            <button id="loginBtn" class="cybr-btn">AKTIFKAN SISTEM</button>
             <div class="footer">
                 <div class="footer-logo">
                     <img src="logo-ms-str.jpg" alt="Logo Mahkamah Syar'iyah">
@@ -520,35 +401,12 @@
             }, 800);
         }
 
-        // Halaman 1 -> Halaman 2
-        loginBtn.addEventListener('click', () => {
-            applyPageTransition(loginPage, dashboardPage);
-        });
-
-        // Halaman 2 -> Halaman 1
-        backToLoginBtn.addEventListener('click', () => {
-            applyPageTransition(dashboardPage, loginPage); 
-        });
-
-        // Halaman 2 -> Halaman 3
-        presensiBtn.addEventListener('click', () => {
-            applyPageTransition(dashboardPage, presensiPage);
-        });
-
-        // Halaman 3 -> Halaman 2
-        backToDashboardBtn.addEventListener('click', () => {
-            applyPageTransition(presensiPage, dashboardPage);
-        });
-        
-        // Halaman 3 -> Halaman 4
-        cadanganBtn.addEventListener('click', () => {
-            applyPageTransition(presensiPage, cadanganPage);
-        });
-        
-        // Halaman 4 -> Halaman 3
-        backToPresensiBtn.addEventListener('click', () => {
-            applyPageTransition(cadanganPage, presensiPage);
-        });
+        loginBtn.addEventListener('click', () => { applyPageTransition(loginPage, dashboardPage); });
+        backToLoginBtn.addEventListener('click', () => { applyPageTransition(dashboardPage, loginPage); });
+        presensiBtn.addEventListener('click', () => { applyPageTransition(dashboardPage, presensiPage); });
+        backToDashboardBtn.addEventListener('click', () => { applyPageTransition(presensiPage, dashboardPage); });
+        cadanganBtn.addEventListener('click', () => { applyPageTransition(presensiPage, cadanganPage); });
+        backToPresensiBtn.addEventListener('click', () => { applyPageTransition(cadanganPage, presensiPage); });
     </script>
 </body>
 </html>
