@@ -56,7 +56,6 @@
             left: 25px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            /* Ukuran font tetap untuk tampilan desktop */
             font-size: 2.5rem;
             color: var(--flame-white);
             z-index: 1000;
@@ -100,7 +99,6 @@
             border: 1px solid rgba(0, 255, 255, 0.2);
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
             padding: 20px 15px; 
-            /* Spasi antar elemen disesuaikan untuk desktop */
             gap: 2.5rem;
         }
 
@@ -181,7 +179,6 @@
         .back-button:hover { background-color: var(--accent-color); color: var(--dark-bg); box-shadow: 0 0 25px var(--accent-color); }
         .back-button:active { transform: scale(0.98); }
         
-        /* Layout footer dibuat untuk desktop dan diletakkan di pojok kiri bawah */
         .footer { 
             position: absolute; 
             bottom: 20px; 
@@ -202,11 +199,8 @@
 
 <body>
     <div id="vanta-bg"></div>
-
     <div class="top-left-brand">SIBOSS</div>
-
     <div class="container">
-        
         <div id="login-page" class="page">
             <div class="header-box">
                 <div class="marquee-wrapper">
@@ -217,10 +211,7 @@
             <div class="logo-container">
                 <img src="LOGO SIBOSS.png" alt="Logo SIBOSS">
             </div>
-            <button id="loginBtn" class="cybr-btn">
-                AKTIFKAN SISTEM
-            </button>
-
+            <button id="loginBtn" class="cybr-btn">AKTIFKAN SISTEM</button>
             <div class="footer">
                 <div class="footer-logo">
                     <img src="logo-ms-str.jpg" alt="Logo Mahkamah Syar'iyah">
@@ -232,7 +223,6 @@
                 </div>
             </div>
         </div>
-
         <div id="dashboard-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://mahkamahagungnuril123-lgtm.github.io/peminjaman_barang/" target="_blank" class="dashboard-card">
@@ -248,7 +238,6 @@
             </div>
             <button class="back-button" id="backToLoginBtn">KEMBALI KE GERBANG UTAMA</button>
         </div>
-
         <div id="presensi-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://mahkamahagungnuril123-lgtm.github.io/absensi-kebersihan/" target="_blank" class="dashboard-card">
@@ -264,7 +253,6 @@
             </div>
             <button class="back-button" id="backToDashboardBtn">KEMBALI KE DASHBOARD</button>
         </div>
-
         <div id="cadangan-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPSTAM6DiUzjUy9hz4P4zV0xwuPrqmvChDF0JGzMkLY9E25Q/viewform" target="_blank" class="dashboard-card">
@@ -280,66 +268,16 @@
             </div>
             <button class="back-button" id="backToPresensiBtn">KEMBALI KE PILIHAN PRESENSI</button>
         </div>
-
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <script>
-    VANTA.NET({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0x00ffff,
-      backgroundColor: 0x0,
-      points: 18.00,
-      maxDistance: 30.00,
-      spacing: 18.00
-    })
+    VANTA.NET({el: "#vanta-bg",mouseControls: true,touchControls: true,gyroControls: false,minHeight: 200.00,minWidth: 200.00,scale: 1.00,scaleMobile: 1.00,color: 0x00ffff,backgroundColor: 0x0,points: 18.00,maxDistance: 30.00,spacing: 18.00})
     </script>
-    
     <script>
-        const loginPage = document.getElementById('login-page');
-        const dashboardPage = document.getElementById('dashboard-page');
-        const presensiPage = document.getElementById('presensi-page');
-        const cadanganPage = document.getElementById('cadangan-page');
-        
-        const loginBtn = document.getElementById('loginBtn');
-        const backToLoginBtn = document.getElementById('backToLoginBtn');
-        const presensiBtn = document.getElementById('presensiBtn');
-        const backToDashboardBtn = document.getElementById('backToDashboardBtn');
-        const cadanganBtn = document.getElementById('cadanganBtn');
-        const backToPresensiBtn = document.getElementById('backToPresensiBtn');
-
-        function applyPageTransition(currentPage, nextPage) {
-            const outClass = 'page-effect-out';
-            const inClass = 'page-effect-in-prepare';
-
-            nextPage.classList.add(inClass);
-            nextPage.classList.remove('hidden');
-
-            requestAnimationFrame(() => {
-                currentPage.classList.add(outClass);
-                nextPage.classList.remove(inClass);
-            });
-
-            setTimeout(() => {
-                currentPage.classList.add('hidden');
-                currentPage.classList.remove(outClass);
-            }, 800);
-        }
-
-        loginBtn.addEventListener('click', () => applyPageTransition(loginPage, dashboardPage));
-        backToLoginBtn.addEventListener('click', () => applyPageTransition(dashboardPage, loginPage));
-        presensiBtn.addEventListener('click', () => applyPageTransition(dashboardPage, presensiPage));
-        backToDashboardBtn.addEventListener('click', () => applyPageTransition(presensiPage, dashboardPage));
-        cadanganBtn.addEventListener('click', () => applyPageTransition(presensiPage, cadanganPage));
-        backToPresensiBtn.addEventListener('click', () => applyPageTransition(cadanganPage, presensiPage));
+        const loginPage = document.getElementById('login-page');const dashboardPage = document.getElementById('dashboard-page');const presensiPage = document.getElementById('presensi-page');const cadanganPage = document.getElementById('cadangan-page');const loginBtn = document.getElementById('loginBtn');const backToLoginBtn = document.getElementById('backToLoginBtn');const presensiBtn = document.getElementById('presensiBtn');const backToDashboardBtn = document.getElementById('backToDashboardBtn');const cadanganBtn = document.getElementById('cadanganBtn');const backToPresensiBtn = document.getElementById('backToPresensiBtn');
+        function applyPageTransition(currentPage, nextPage) {const outClass = 'page-effect-out';const inClass = 'page-effect-in-prepare';nextPage.classList.add(inClass);nextPage.classList.remove('hidden');requestAnimationFrame(() => {currentPage.classList.add(outClass);nextPage.classList.remove(inClass);});setTimeout(() => {currentPage.classList.add('hidden');currentPage.classList.remove(outClass);}, 800);}
+        loginBtn.addEventListener('click', () => applyPageTransition(loginPage, dashboardPage));backToLoginBtn.addEventListener('click', () => applyPageTransition(dashboardPage, loginPage));presensiBtn.addEventListener('click', () => applyPageTransition(dashboardPage, presensiPage));backToDashboardBtn.addEventListener('click', () => applyPageTransition(presensiPage, dashboardPage));cadanganBtn.addEventListener('click', () => applyPageTransition(presensiPage, cadanganPage));backToPresensiBtn.addEventListener('click', () => applyPageTransition(cadanganPage, presensiPage));
     </script>
 </body>
 </html>
