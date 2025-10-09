@@ -28,7 +28,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* PENYEMPURNAAN: Menggunakan unit dvh agar 100% full screen di semua HP */
+            height: 100vh; /* Fallback untuk browser lama */
+            height: 100dvh; /* Unit tinggi dinamis yang lebih akurat */
             overflow: hidden;
             margin: 0;
             position: relative;
