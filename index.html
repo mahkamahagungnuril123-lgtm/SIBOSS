@@ -59,8 +59,7 @@
                 0 0 30px rgba(255, 69, 0, 0.9);
             animation: 
                 fireFlicker 0.1s ease-in-out infinite alternate,
-                fireJitter 0.5s linear infinite,
-                fireShimmer 5s linear infinite;
+                fireJitter 0.5s linear infinite;
         }
         
         @keyframes fireFlicker { 0% { opacity: 1; } 50% { opacity: 0.9; } 100% { opacity: 1; } }
@@ -71,7 +70,6 @@
             75% { transform: translate(-1px, 0.5px); text-shadow: 0 0 6px var(--flame-yellow), 0 0 20px var(--flame-red); }
             100% { transform: translate(0, 0); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
         }
-        @keyframes fireShimmer { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
         
         .container {
             position: relative;
@@ -97,26 +95,27 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
         }
 
-        .page.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .page.glitch-out { animation: glitchOut 0.8s forwards; }
-        .page.glitch-in { animation: glitchIn 0.8s forwards; opacity: 0; }
-
-        @keyframes glitchOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.8); opacity: 0; visibility: hidden; pointer-events: none; } }
-        @keyframes glitchIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; visibility: visible; pointer-events: auto; } }
+        .page.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
+        
+        .page.page-effect-out {
+            transform: scale(0.8) rotateZ(-3deg);
+            opacity: 0;
+            filter: blur(4px);
+        }
+        .page.page-effect-in-prepare {
+            transform: scale(1.2) rotateZ(3deg);
+            opacity: 0;
+            filter: blur(4px);
+        }
 
         .header-box {
-            border: 1px solid var(--glow-color);
-            padding: 0;
-            margin-bottom: 50px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden; 
+            border: 1px solid var(--glow-color); padding: 0; margin-bottom: 50px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); position: relative; overflow: hidden; 
             background: linear-gradient(45deg, #030712, #111827, #005f5f, #111827, #030712);
-            background-size: 400% 400%;
-            animation: animateGradient 10s ease infinite;
-            max-width: 90%;
+            background-size: 400% 400%; animation: animateGradient 10s ease infinite; max-width: 90%;
         }
         
         .marquee-wrapper { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; padding: 15px 0; }
@@ -125,8 +124,7 @@
 
         .header-box::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: var(--glow-color); box-shadow: 0 0 10px var(--glow-color);
-            animation: scanline 4s linear infinite;
+            background: var(--glow-color); box-shadow: 0 0 10px var(--glow-color); animation: scanline 4s linear infinite;
         }
         @keyframes scanline { 0% { top: 0; } 50% { top: 95%; } 100% { top: 0; } }
 
@@ -137,12 +135,10 @@
         
         .logo-container img {
             width: 350px; max-width: 80%; height: auto; margin-bottom: 40px;
-            animation: float 6s ease-in-out infinite;
-            filter: drop-shadow(0 0 25px var(--glow-color));
+            animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color));
         }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         
-        /* PERUBAHAN: Tombol lebih modern dengan efek kilau */
         .cybr-btn {
             font-family: 'Orbitron', sans-serif; cursor: pointer; padding: 18px 50px;
             font-size: 1.3rem; color: var(--glow-color); border: 1px solid var(--glow-color);
@@ -151,31 +147,19 @@
         }
 
         .cybr-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 80%;
-            height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 80%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: skewX(-30deg);
-            transition: left 0.7s ease-in-out;
+            transform: skewX(-30deg); transition: left 0.7s ease-in-out;
         }
 
-        .cybr-btn:hover::before {
-            left: 150%;
-        }
+        .cybr-btn:hover::before { left: 150%; }
         
         .cybr-btn:hover {
-            box-shadow: 0 0 40px var(--glow-color);
-            background-color: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 40px var(--glow-color); background-color: rgba(0, 255, 255, 0.2);
             transform: translateY(-5px); color: #fff;
         }
 
-        .cybr-btn:active {
-            transform: translateY(-2px) scale(0.98);
-            box-shadow: 0 0 20px var(--glow-color);
-        }
+        .cybr-btn:active { transform: translateY(-2px) scale(0.98); box-shadow: 0 0 20px var(--glow-color); }
 
         .dashboard-content {
             display: flex; justify-content: center; align-items: center;
@@ -183,21 +167,18 @@
         }
         
         .dashboard-card {
-            background: linear-gradient(145deg, #1f2937, #111827);
-            border: 2px solid var(--glow-color); width: 450px; height: 300px;
-            max-width: 90%; padding: 30px; border-radius: 8px; text-decoration: none;
-            color: var(--text-color); cursor: pointer;
+            background: linear-gradient(145deg, #1f2937, #111827); border: 2px solid var(--glow-color); 
+            width: 450px; height: 300px; max-width: 90%; padding: 30px; border-radius: 8px; 
+            text-decoration: none; color: var(--text-color); cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; animation: cardFadeIn 0.8s ease-out forwards;
-            opacity: 0; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;
         }
         
-        .dashboard-content a:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-content > * { animation: cardFadeIn 0.8s ease-out forwards; opacity: 0; }
+        .dashboard-content > *:nth-child(2) { animation-delay: 0.2s; }
         @keyframes cardFadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* PERUBAHAN: Efek hover kartu lebih dramatis */
         .dashboard-card:hover {
             transform: translateY(-15px) scale(1.05);
             box-shadow: 0 0 50px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5);
@@ -205,34 +186,50 @@
         }
         
         .card-icon {
-            font-size: 4.5rem; margin-bottom: 20px; color: var(--glow-color);
-            transition: color 0.3s;
+            font-size: 4.5rem; margin-bottom: 20px; color: var(--glow-color); transition: color 0.3s;
         }
-        
         .dashboard-card:hover .card-icon { color: var(--accent-color); }
 
         .dashboard-card h2 {
             font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 15px;
             color: var(--glow-color); transition: color 0.3s; text-align: center;
         }
-
         .dashboard-card:hover h2 { color: var(--accent-color); }
-        
         .dashboard-card p { font-size: 1rem; line-height: 1.5; text-align: center; }
 
-        #backBtn {
+        .back-button {
             margin-top: 50px; padding: 12px 30px; background-color: var(--light-bg);
             border: 1px solid var(--accent-color); border-radius: 5px; color: var(--accent-color);
             font-family: 'Orbitron', sans-serif; font-size: 1rem; cursor: pointer;
             transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 0, 193, 0.3);
         }
-
-        #backBtn:hover {
+        .back-button:hover {
             background-color: var(--accent-color); color: var(--dark-bg);
             box-shadow: 0 0 25px var(--accent-color);
         }
+        .back-button:active { transform: scale(0.98); }
         
-        #backBtn:active { transform: scale(0.98); }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: rgba(249, 250, 251, 0.6);
+            z-index: 10;
+        }
+        .footer-logo img {
+            width: 55px;
+            height: auto;
+        }
+        .footer-text {
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        .footer-text p {
+            margin: 0;
+        }
 
     </style>
 </head>
@@ -257,23 +254,67 @@
             <button id="loginBtn" class="cybr-btn">
                 AKTIFKAN SISTEM
             </button>
+
+            <div class="footer">
+                <div class="footer-logo">
+                    <img src="logo-ms-str.jpg" alt="Logo Mahkamah Syar'iyah">
+                </div>
+                <div class="footer-text">
+                    <p><strong>Mahkamah Syar'iyah Simpang Tiga Redelong</strong></p>
+                    <p>Hak Cipta Mahkamah Syar'iyah Simpang Tiga Redelong</p>
+                    <p>Wonosobo, Kec. Bukit, Kabupaten Bener Meriah, Aceh 24582 Indonesia</p>
+                </div>
+            </div>
         </div>
 
-        <div id="dashboard-page" class="page hidden">
+        <div id="dashboard-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://mahkamahagungnuril123-lgtm.github.io/peminjaman_barang/" target="_blank" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
                     <h2>PEMINJAMAN BARANG</h2>
                     <p>Portal untuk mengajukan dan mengelola peminjaman barang.</p>
                 </a>
-                <a href="https://mahkamahagungnuril123-lgtm.github.io/absensi-kebersihan/" target="_blank" class="dashboard-card">
+                <a id="presensiBtn" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-clipboard-check"></i></div>
                     <h2>PRESENSI KEBERSIHAN</h2>
                     <p>Portal untuk melakukan presensi dan validasi tugas kebersihan.</p>
                 </a>
             </div>
-            <button id="backBtn">KEMBALI KE GERBANG UTAMA</button>
+            <button class="back-button" id="backToLoginBtn">KEMBALI KE GERBANG UTAMA</button>
         </div>
+
+        <div id="presensi-page" class="page hidden page-effect-in-prepare">
+            <div class="dashboard-content">
+                <a href="https://mahkamahagungnuril123-lgtm.github.io/absensi-kebersihan/" target="_blank" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <h2>PRESENSI UTAMA</h2>
+                    <p>Buka portal utama untuk presensi kebersihan.</p>
+                </a>
+                <a id="cadanganBtn" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <h2>PRESENSI CADANGAN</h2>
+                    <p>Gunakan portal cadangan jika portal utama bermasalah.</p>
+                </a>
+            </div>
+            <button class="back-button" id="backToDashboardBtn">KEMBALI KE DASHBOARD</button>
+        </div>
+
+        <div id="cadangan-page" class="page hidden page-effect-in-prepare">
+            <div class="dashboard-content">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPSTAM6DiUzjUy9hz4P4zV0xwuPrqmvChDF0JGzMkLY9E25Q/viewform" target="_blank" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-file-pen"></i></div>
+                    <h2>PRESENSI</h2>
+                    <p>Isi formulir presensi cadangan melalui Google Forms.</p>
+                </a>
+                <a href="https://docs.google.com/spreadsheets/d/1rjB-ROmR3r8l-GP_Gi_kEFrqvO5siftIgcBupbJMQfA/edit?usp=sharing" target="_blank" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-database"></i></div>
+                    <h2>DATABASE DATA TERSIMPAN</h2>
+                    <p>Lihat rekapitulasi data presensi yang telah tersimpan.</p>
+                </a>
+            </div>
+            <button class="back-button" id="backToPresensiBtn">KEMBALI KE PILIHAN PRESENSI</button>
+        </div>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -299,32 +340,62 @@
     <script>
         const loginPage = document.getElementById('login-page');
         const dashboardPage = document.getElementById('dashboard-page');
+        const presensiPage = document.getElementById('presensi-page');
+        const cadanganPage = document.getElementById('cadangan-page');
+        
         const loginBtn = document.getElementById('loginBtn');
-        const backBtn = document.getElementById('backBtn');
+        const backToLoginBtn = document.getElementById('backToLoginBtn');
+        const presensiBtn = document.getElementById('presensiBtn');
+        const backToDashboardBtn = document.getElementById('backToDashboardBtn');
+        const cadanganBtn = document.getElementById('cadanganBtn');
+        const backToPresensiBtn = document.getElementById('backToPresensiBtn');
 
-        function applyGlitchTransition(currentPage, nextPage) {
-            currentPage.classList.add('glitch-out');
-            
+        function applyPageTransition(currentPage, nextPage) {
+            const outClass = 'page-effect-out';
+            const inClass = 'page-effect-in-prepare';
+
+            nextPage.classList.add(inClass);
+            nextPage.classList.remove('hidden');
+
+            requestAnimationFrame(() => {
+                currentPage.classList.add(outClass);
+                nextPage.classList.remove(inClass);
+            });
+
             setTimeout(() => {
                 currentPage.classList.add('hidden');
-                currentPage.classList.remove('glitch-out');
-                
-                nextPage.classList.remove('hidden');
-                nextPage.classList.add('glitch-in');
-
-                setTimeout(() => {
-                    nextPage.classList.remove('glitch-in');
-                }, 800);
-
+                currentPage.classList.remove(outClass);
             }, 800);
         }
 
+        // Halaman 1 -> Halaman 2
         loginBtn.addEventListener('click', () => {
-            applyGlitchTransition(loginPage, dashboardPage);
+            applyPageTransition(loginPage, dashboardPage);
         });
 
-        backBtn.addEventListener('click', () => {
-            applyGlitchTransition(dashboardPage, loginPage);
+        // Halaman 2 -> Halaman 1
+        backToLoginBtn.addEventListener('click', () => {
+            applyPageTransition(dashboardPage, loginPage); 
+        });
+
+        // Halaman 2 -> Halaman 3
+        presensiBtn.addEventListener('click', () => {
+            applyPageTransition(dashboardPage, presensiPage);
+        });
+
+        // Halaman 3 -> Halaman 2
+        backToDashboardBtn.addEventListener('click', () => {
+            applyPageTransition(presensiPage, dashboardPage);
+        });
+        
+        // Halaman 3 -> Halaman 4
+        cadanganBtn.addEventListener('click', () => {
+            applyPageTransition(presensiPage, cadanganPage);
+        });
+        
+        // Halaman 4 -> Halaman 3
+        backToPresensiBtn.addEventListener('click', () => {
+            applyPageTransition(cadanganPage, presensiPage);
         });
     </script>
 </body>
