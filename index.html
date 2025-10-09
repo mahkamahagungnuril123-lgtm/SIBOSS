@@ -56,7 +56,8 @@
             left: 25px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 2rem;
+            /* PERBAIKAN: Ukuran font dibuat responsif (fluid) */
+            font-size: clamp(1.75rem, 6vw, 2.25rem);
             color: var(--flame-white);
             z-index: 1000;
             text-shadow: 
@@ -98,7 +99,8 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(0, 255, 255, 0.2);
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
-            padding: 20px 15px; 
+            /* PERBAIKAN: Padding disesuaikan agar tidak terlalu mepet di layar kecil */
+            padding: 20px; 
             gap: 1.5rem;
         }
 
@@ -111,12 +113,13 @@
             padding: 0; 
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); 
             position: relative; 
-            overflow: hidden; 
+            overflow: hidden; /* Penting untuk marquee */
             background: linear-gradient(45deg, #030712, #111827, #005f5f, #111827, #030712);
             background-size: 400% 400%; 
             animation: animateGradient 10s ease infinite; 
             width: 100%;
-            max-width: 95%;
+            /* PERBAIKAN: max-width disesuaikan agar lebih konsisten */
+            max-width: 90%;
         }
         
         .marquee-wrapper { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; padding: 10px 0; }
@@ -129,17 +132,37 @@
         }
         @keyframes scanline { 0% { top: 0; } 50% { top: 95%; } 100% { top: 0; } }
 
-        .header-text { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--text-color); text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2; }
+        .header-text { 
+            font-family: 'Orbitron', sans-serif; 
+            /* PERBAIKAN: Ukuran font marquee dibuat responsif */
+            font-size: clamp(0.85rem, 3vw, 1.1rem);
+            color: var(--text-color); 
+            text-shadow: 0 0 5px #000; 
+            letter-spacing: 2px; 
+            position: relative; 
+            z-index: 2; 
+        }
         .logo-container { line-height: 0; display: flex; justify-content: center; }
-        .logo-container img { width: 65%; max-width: 240px; height: auto; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color)); }
+        .logo-container img { 
+            /* PERBAIKAN: Lebar logo lebih adaptif di mobile */
+            width: 70%; 
+            max-width: 250px; 
+            height: auto; 
+            animation: float 6s ease-in-out infinite; 
+            filter: drop-shadow(0 0 25px var(--glow-color)); 
+        }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         
         .cybr-btn {
             font-family: 'Orbitron', sans-serif; cursor: pointer;
-            padding: 16px 25px; font-size: 1rem; color: var(--glow-color); border: 1px solid var(--glow-color);
+            padding: 16px 25px; 
+            /* PERBAIKAN: Ukuran font tombol dibuat responsif */
+            font-size: clamp(0.9rem, 4vw, 1rem);
+            color: var(--glow-color); border: 1px solid var(--glow-color);
             background-color: rgba(0, 255, 255, 0.05); position: relative;
             transition: all 0.3s ease; text-transform: uppercase; overflow: hidden;
             width: 90%; max-width: 320px;
+            text-align: center; /* Memastikan teks di tengah */
         }
         .cybr-btn::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 80%; height: 100%;
@@ -163,9 +186,11 @@
         .dashboard-content > *:nth-child(2) { animation-delay: 0.2s; }
         @keyframes cardFadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         .dashboard-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5); border-color: var(--accent-color); }
-        .card-icon { font-size: 3.5rem; margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s; }
+        
+        /* PERBAIKAN: Ukuran ikon dan teks di kartu dibuat responsif */
+        .card-icon { font-size: clamp(3rem, 10vw, 3.5rem); margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s; }
         .dashboard-card:hover .card-icon { color: var(--accent-color); }
-        .dashboard-card h2 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 10px; color: var(--glow-color); transition: color 0.3s; text-align: center; }
+        .dashboard-card h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 5vw, 1.5rem); margin-bottom: 10px; color: var(--glow-color); transition: color 0.3s; text-align: center; }
         .dashboard-card:hover h2 { color: var(--accent-color); }
         .dashboard-card p { font-size: 0.9rem; line-height: 1.5; text-align: center; }
 
@@ -175,29 +200,69 @@
             font-family: 'Orbitron', sans-serif; font-size: 0.9rem; cursor: pointer;
             transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 0, 193, 0.3);
             width: 80%; max-width: 300px;
+            text-align: center; /* Memastikan teks di tengah */
         }
         .back-button:hover { background-color: var(--accent-color); color: var(--dark-bg); box-shadow: 0 0 25px var(--accent-color); }
         .back-button:active { transform: scale(0.98); }
         
-        .footer { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; color: rgba(249, 250, 251, 0.6); width: 100%; }
+        /* PERBAIKAN: Footer diatur agar lebih rapi di mobile */
+        .footer { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            gap: 10px; 
+            color: rgba(249, 250, 251, 0.6); 
+            width: 100%; 
+            padding: 0 15px; /* Menambah padding agar tidak mepet */
+        }
         .footer-logo img { width: 45px; height: auto; }
-        .footer-text { font-size: 0.85rem; line-height: 1.4; }
+        .footer-text { font-size: 0.8rem; line-height: 1.4; }
         .footer-text p { margin: 0; }
 
+        /* Media Query untuk layar lebih besar (Tablet dan Desktop) */
         @media (min-width: 768px) {
             .page { gap: 2.5rem; }
-            .top-left-brand { font-size: 2.5rem; }
+            .top-left-brand { 
+                font-size: 2.5rem; /* Mengembalikan ukuran font untuk desktop */
+            }
             .header-box { max-width: 900px; }
-            .header-text { font-size: 1.5rem; }
-            .logo-container img { width: 450px; max-width: 450px; }
-            .cybr-btn { font-size: 1.3rem; padding: 18px 50px; width: auto; max-width: none; }
+            .header-text { 
+                font-size: 1.5rem; /* Mengembalikan ukuran font untuk desktop */
+            }
+            .logo-container img { 
+                width: 450px; 
+                max-width: 450px; 
+            }
+            .cybr-btn { 
+                font-size: 1.3rem; /* Mengembalikan ukuran font untuk desktop */
+                padding: 18px 50px; 
+                width: auto; 
+                max-width: none; 
+            }
             .dashboard-content { gap: 50px; flex-direction: row; }
             .dashboard-card { width: 450px; height: 300px; padding: 30px; }
-            .card-icon { font-size: 4.5rem; }
-            .dashboard-card h2 { font-size: 2rem; }
+            .card-icon { 
+                font-size: 4.5rem; /* Mengembalikan ukuran ikon untuk desktop */
+            }
+            .dashboard-card h2 { 
+                font-size: 2rem; /* Mengembalikan ukuran heading untuk desktop */
+            }
             .dashboard-card p { font-size: 1rem; }
             .back-button { font-size: 1rem; width: auto; max-width: none; }
-            .footer { position: absolute; bottom: 20px; left: 25px; flex-direction: row; text-align: left; align-items: center; gap: 20px; width: auto; }
+            
+            /* Mengembalikan layout footer untuk desktop */
+            .footer { 
+                position: absolute; 
+                bottom: 20px; 
+                left: 25px; 
+                flex-direction: row; 
+                text-align: left; 
+                align-items: center; 
+                gap: 20px; 
+                width: auto; 
+                padding: 0;
+            }
             .footer-logo img { width: 55px; }
             .footer-text { font-size: 0.9rem; }
         }
@@ -308,6 +373,7 @@
     </script>
     
     <script>
+        // Bagian JavaScript tidak perlu diubah, sudah berfungsi dengan baik.
         const loginPage = document.getElementById('login-page');
         const dashboardPage = document.getElementById('dashboard-page');
         const presensiPage = document.getElementById('presensi-page');
