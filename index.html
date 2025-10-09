@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIBOSS - Terminal Operasional</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
@@ -28,7 +28,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* PENYEMPURNAAN: Menggunakan unit dvh agar 100% full screen di semua HP */
+            height: 100vh; /* Fallback untuk browser lama */
+            height: 100dvh; /* Unit tinggi dinamis yang lebih akurat */
             overflow: hidden;
             margin: 0;
             position: relative;
@@ -49,7 +51,7 @@
             left: 25px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--flame-white);
             z-index: 1000;
             text-shadow: 
@@ -95,139 +97,248 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(0, 255, 255, 0.2);
-            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
+            padding: 20px;
+            box-sizing: border-box;
+            gap: 2rem;
         }
 
         .page.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
         
-        .page.page-slide-out {
-            transform: translateX(-50%);
+        .page.page-effect-out {
+            transform: scale(0.8) rotateZ(-3deg);
             opacity: 0;
+            filter: blur(4px);
         }
-        .page.page-slide-in-prepare {
-            transform: translateX(50%);
+        .page.page-effect-in-prepare {
+            transform: scale(1.2) rotateZ(3deg);
             opacity: 0;
+            filter: blur(4px);
         }
 
         .header-box {
-            border: 1px solid var(--glow-color);
-            padding: 0;
-            margin-bottom: 50px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            position: relative;
+            border: 1px solid var(--glow-color); 
+            padding: 0; 
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); 
+            position: relative; 
             overflow: hidden; 
             background: linear-gradient(45deg, #030712, #111827, #005f5f, #111827, #030712);
-            background-size: 400% 400%;
-            animation: animateGradient 10s ease infinite;
-            max-width: 90%;
+            background-size: 400% 400%; 
+            animation: animateGradient 10s ease infinite; 
+            width: 100%;
+            max-width: 95%;
         }
         
-        .marquee-wrapper { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; padding: 15px 0; }
+        .marquee-wrapper { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; padding: 10px 0; }
         @keyframes marquee { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
         @keyframes animateGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         .header-box::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: var(--glow-color); box-shadow: 0 0 10px var(--glow-color);
-            animation: scanline 4s linear infinite;
+            background: var(--glow-color); box-shadow: 0 0 10px var(--glow-color); animation: scanline 4s linear infinite;
         }
         @keyframes scanline { 0% { top: 0; } 50% { top: 95%; } 100% { top: 0; } }
 
         .header-text {
-            font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-color);
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 1.3rem;
+            color: var(--text-color);
             text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2;
         }
         
+        .logo-container {
+            line-height: 0;
+            display: flex;
+            justify-content: center;
+        }
+
         .logo-container img {
-            width: 350px; max-width: 80%; height: auto; margin-bottom: 40px;
-            animation: float 6s ease-in-out infinite;
-            filter: drop-shadow(0 0 25px var(--glow-color));
+            width: 70%;
+            max-width: 300px; 
+            height: auto; 
+            animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color));
         }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         
         .cybr-btn {
-            font-family: 'Orbitron', sans-serif; cursor: pointer; padding: 18px 50px;
-            font-size: 1.3rem; color: var(--glow-color); border: 1px solid var(--glow-color);
+            font-family: 'Orbitron', sans-serif; cursor: pointer;
+            padding: 18px 30px;
+            font-size: 1.1rem;
+            color: var(--glow-color); border: 1px solid var(--glow-color);
             background-color: rgba(0, 255, 255, 0.05); position: relative;
             transition: all 0.3s ease; text-transform: uppercase; overflow: hidden;
+            width: 80%;
+            max-width: 300px;
         }
 
         .cybr-btn::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 80%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: skewX(-30deg);
-            transition: left 0.7s ease-in-out;
+            transform: skewX(-30deg); transition: left 0.7s ease-in-out;
         }
 
         .cybr-btn:hover::before { left: 150%; }
         
         .cybr-btn:hover {
-            box-shadow: 0 0 40px var(--glow-color);
-            background-color: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 40px var(--glow-color); background-color: rgba(0, 255, 255, 0.2);
             transform: translateY(-5px); color: #fff;
         }
 
-        .cybr-btn:active {
-            transform: translateY(-2px) scale(0.98);
-            box-shadow: 0 0 20px var(--glow-color);
-        }
+        .cybr-btn:active { transform: translateY(-2px) scale(0.98); box-shadow: 0 0 20px var(--glow-color); }
 
         .dashboard-content {
             display: flex; justify-content: center; align-items: center;
-            flex-wrap: wrap; gap: 50px; width: 100%;
+            flex-wrap: wrap; gap: 20px;
+            width: 100%;
         }
         
         .dashboard-card {
-            background: linear-gradient(145deg, #1f2937, #111827);
-            border: 2px solid var(--glow-color); width: 450px; height: 300px;
-            max-width: 90%; padding: 30px; border-radius: 8px; text-decoration: none;
-            color: var(--text-color); cursor: pointer;
+            background: linear-gradient(145deg, #1f2937, #111827); border: 2px solid var(--glow-color); 
+            width: 100%;
+            max-width: 400px; 
+            height: auto;
+            min-height: 250px;
+            padding: 20px;
+            border-radius: 8px; 
+            text-decoration: none; color: var(--text-color); cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;
         }
         
         .dashboard-content > * { animation: cardFadeIn 0.8s ease-out forwards; opacity: 0; }
         .dashboard-content > *:nth-child(2) { animation-delay: 0.2s; }
-
         @keyframes cardFadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         
         .dashboard-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5);
             border-color: var(--accent-color);
         }
         
         .card-icon {
-            font-size: 4.5rem; margin-bottom: 20px; color: var(--glow-color);
-            transition: color 0.3s;
+            font-size: 3.5rem;
+            margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s;
         }
-        
         .dashboard-card:hover .card-icon { color: var(--accent-color); }
 
         .dashboard-card h2 {
-            font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif; font-size: 1.5rem;
+             margin-bottom: 10px;
             color: var(--glow-color); transition: color 0.3s; text-align: center;
         }
-
         .dashboard-card:hover h2 { color: var(--accent-color); }
-        
-        .dashboard-card p { font-size: 1rem; line-height: 1.5; text-align: center; }
+        .dashboard-card p { font-size: 0.9rem; line-height: 1.5; text-align: center; }
 
         .back-button {
-            margin-top: 50px; padding: 12px 30px; background-color: var(--light-bg);
+            padding: 12px 30px; background-color: var(--light-bg);
             border: 1px solid var(--accent-color); border-radius: 5px; color: var(--accent-color);
-            font-family: 'Orbitron', sans-serif; font-size: 1rem; cursor: pointer;
+            font-family: 'Orbitron', sans-serif; font-size: 0.9rem; cursor: pointer;
             transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 0, 193, 0.3);
+            width: 80%;
+            max-width: 300px;
         }
-
         .back-button:hover {
             background-color: var(--accent-color); color: var(--dark-bg);
             box-shadow: 0 0 25px var(--accent-color);
         }
-        
         .back-button:active { transform: scale(0.98); }
+        
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            color: rgba(249, 250, 251, 0.6);
+            z-index: 10;
+        }
+        .footer-logo img {
+            width: 45px;
+            height: auto;
+        }
+        .footer-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .footer-text p {
+            margin: 0;
+        }
+
+        /* =============================================== */
+        /* Media Query untuk layar besar (Desktop)         */
+        /* =============================================== */
+        @media (min-width: 768px) {
+            .page {
+                gap: 2.5rem;
+            }
+            
+            .top-left-brand {
+                font-size: 2.5rem;
+            }
+
+            .header-box {
+                max-width: 900px;
+            }
+
+            .header-text {
+                font-size: 1.5rem;
+            }
+            .logo-container img {
+                width: 450px;
+                max-width: 450px;
+            }
+            .cybr-btn {
+                font-size: 1.3rem;
+                padding: 18px 50px;
+                width: auto;
+                max-width: none;
+            }
+            .dashboard-content {
+                gap: 50px;
+                flex-direction: row;
+            }
+            .dashboard-card {
+                width: 450px;
+                height: 300px;
+                padding: 30px;
+            }
+             .card-icon {
+                font-size: 4.5rem;
+            }
+            .dashboard-card h2 {
+                font-size: 2rem;
+            }
+             .dashboard-card p {
+                font-size: 1rem;
+            }
+            .back-button {
+                font-size: 1rem;
+                width: auto;
+                max-width: none;
+            }
+            .footer {
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                gap: 20px;
+                width: auto;
+                left: 25px;
+                bottom: 20px;
+            }
+            .footer-logo img {
+                width: 55px;
+            }
+            .footer-text {
+                font-size: 0.9rem;
+            }
+        }
 
     </style>
 </head>
@@ -252,9 +363,20 @@
             <button id="loginBtn" class="cybr-btn">
                 AKTIFKAN SISTEM
             </button>
+
+            <div class="footer">
+                <div class="footer-logo">
+                    <img src="logo-ms-str.jpg" alt="Logo Mahkamah Syar'iyah">
+                </div>
+                <div class="footer-text">
+                    <p><strong>Mahkamah Syar'iyah Simpang Tiga Redelong</strong></p>
+                    <p>Hak Cipta Mahkamah Syar'iyah Simpang Tiga Redelong</p>
+                    <p>Wonosobo, Kec. Bukit, Kabupaten Bener Meriah, Aceh 24582 Indonesia</p>
+                </div>
+            </div>
         </div>
 
-        <div id="dashboard-page" class="page hidden page-slide-in-prepare">
+        <div id="dashboard-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://mahkamahagungnuril123-lgtm.github.io/peminjaman_barang/" target="_blank" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
@@ -270,7 +392,7 @@
             <button class="back-button" id="backToLoginBtn">KEMBALI KE GERBANG UTAMA</button>
         </div>
 
-        <div id="presensi-page" class="page hidden page-slide-in-prepare">
+        <div id="presensi-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://mahkamahagungnuril123-lgtm.github.io/absensi-kebersihan/" target="_blank" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-clipboard-list"></i></div>
@@ -286,7 +408,7 @@
             <button class="back-button" id="backToDashboardBtn">KEMBALI KE DASHBOARD</button>
         </div>
 
-        <div id="cadangan-page" class="page hidden page-slide-in-prepare">
+        <div id="cadangan-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPSTAM6DiUzjUy9hz4P4zV0xwuPrqmvChDF0JGzMkLY9E25Q/viewform" target="_blank" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-file-pen"></i></div>
@@ -301,7 +423,8 @@
             </div>
             <button class="back-button" id="backToPresensiBtn">KEMBALI KE PILIHAN PRESENSI</button>
         </div>
-        </div>
+
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
@@ -324,25 +447,21 @@
     </script>
     
     <script>
-        // --- PERUBAHAN JAVASCRIPT ---
-
-        // Mendefinisikan semua halaman dan tombol
         const loginPage = document.getElementById('login-page');
         const dashboardPage = document.getElementById('dashboard-page');
         const presensiPage = document.getElementById('presensi-page');
-        const cadanganPage = document.getElementById('cadangan-page'); // Halaman baru
+        const cadanganPage = document.getElementById('cadangan-page');
         
         const loginBtn = document.getElementById('loginBtn');
         const backToLoginBtn = document.getElementById('backToLoginBtn');
         const presensiBtn = document.getElementById('presensiBtn');
         const backToDashboardBtn = document.getElementById('backToDashboardBtn');
-        const cadanganBtn = document.getElementById('cadanganBtn'); // Tombol baru
-        const backToPresensiBtn = document.getElementById('backToPresensiBtn'); // Tombol kembali baru
+        const cadanganBtn = document.getElementById('cadanganBtn');
+        const backToPresensiBtn = document.getElementById('backToPresensiBtn');
 
-        // Fungsi transisi yang bisa digunakan ulang
-        function applySlideTransition(currentPage, nextPage, reverse = false) {
-            const outClass = reverse ? 'page-slide-in-prepare' : 'page-slide-out';
-            const inClass = reverse ? 'page-slide-out' : 'page-slide-in-prepare';
+        function applyPageTransition(currentPage, nextPage) {
+            const outClass = 'page-effect-out';
+            const inClass = 'page-effect-in-prepare';
 
             nextPage.classList.add(inClass);
             nextPage.classList.remove('hidden');
@@ -360,36 +479,33 @@
 
         // Halaman 1 -> Halaman 2
         loginBtn.addEventListener('click', () => {
-            applySlideTransition(loginPage, dashboardPage);
+            applyPageTransition(loginPage, dashboardPage);
         });
 
         // Halaman 2 -> Halaman 1
         backToLoginBtn.addEventListener('click', () => {
-            applySlideTransition(dashboardPage, loginPage, true);
+            applyPageTransition(dashboardPage, loginPage); 
         });
 
         // Halaman 2 -> Halaman 3
         presensiBtn.addEventListener('click', () => {
-            applySlideTransition(dashboardPage, presensiPage);
+            applyPageTransition(dashboardPage, presensiPage);
         });
 
         // Halaman 3 -> Halaman 2
         backToDashboardBtn.addEventListener('click', () => {
-            applySlideTransition(presensiPage, dashboardPage, true);
+            applyPageTransition(presensiPage, dashboardPage);
         });
         
-        // --- EVENT LISTENER BARU ---
-
         // Halaman 3 -> Halaman 4
         cadanganBtn.addEventListener('click', () => {
-            applySlideTransition(presensiPage, cadanganPage);
+            applyPageTransition(presensiPage, cadanganPage);
         });
         
         // Halaman 4 -> Halaman 3
         backToPresensiBtn.addEventListener('click', () => {
-            applySlideTransition(cadanganPage, presensiPage, true);
+            applyPageTransition(cadanganPage, presensiPage);
         });
-
     </script>
 </body>
 </html>
