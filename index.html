@@ -9,6 +9,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
+        /* PERBAIKAN FINAL: Reset total untuk memastikan tidak ada style default dari browser */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100dvh; /* Memaksa tinggi sesuai layar dinamis HP */
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        body {
+            color: var(--text-color);
+            font-family: 'Roboto Mono', monospace;
+            position: relative;
+        }
+
         :root {
             --glow-color: #00ffff;
             --dark-bg: #030712;
@@ -21,31 +41,13 @@
             --flame-white: #ffffff;
         }
         
-        html {
-            height: 100%;
-        }
-
-        body {
-            background-color: #000000;
-            color: var(--text-color);
-            font-family: 'Roboto Mono', monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            height: 100dvh;
-            overflow: hidden;
-            margin: 0;
-            position: relative;
-        }
-
         #vanta-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 1;
         }
         
         .top-left-brand {
@@ -76,17 +78,11 @@
             100% { transform: translate(0, 0); text-shadow: 0 0 4px var(--flame-yellow), 0 0 16px var(--flame-red); }
         }
         
-        /* PERBAIKAN FINAL: Menghapus padding dari container agar full-width */
         .container {
             position: relative;
             z-index: 3;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-            /* padding: 15px; <-- INI ADALAH SUMBER MASALAH, SUDAH DIHAPUS */
         }
 
         .page {
@@ -102,24 +98,13 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(0, 255, 255, 0.2);
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, filter 0.8s ease;
-            /* Padding dipindahkan ke sini untuk memberi jarak aman bagi KONTEN di dalamnya */
             padding: 20px 15px; 
-            box-sizing: border-box;
             gap: 1.5rem;
         }
 
         .page.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
-        
-        .page.page-effect-out {
-            transform: scale(0.8) rotateZ(-3deg);
-            opacity: 0;
-            filter: blur(4px);
-        }
-        .page.page-effect-in-prepare {
-            transform: scale(1.2) rotateZ(3deg);
-            opacity: 0;
-            filter: blur(4px);
-        }
+        .page.page-effect-out { transform: scale(0.8) rotateZ(-3deg); opacity: 0; filter: blur(4px); }
+        .page.page-effect-in-prepare { transform: scale(1.2) rotateZ(3deg); opacity: 0; filter: blur(4px); }
 
         .header-box {
             border: 1px solid var(--glow-color); 
@@ -144,94 +129,43 @@
         }
         @keyframes scanline { 0% { top: 0; } 50% { top: 95%; } 100% { top: 0; } }
 
-        .header-text {
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 1.1rem;
-            color: var(--text-color);
-            text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2;
-        }
-        
-        .logo-container {
-            line-height: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .logo-container img {
-            width: 65%;
-            max-width: 240px; 
-            height: auto; 
-            animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color));
-        }
+        .header-text { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--text-color); text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2; }
+        .logo-container { line-height: 0; display: flex; justify-content: center; }
+        .logo-container img { width: 65%; max-width: 240px; height: auto; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color)); }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         
         .cybr-btn {
             font-family: 'Orbitron', sans-serif; cursor: pointer;
-            padding: 16px 25px;
-            font-size: 1rem;
-            color: var(--glow-color); border: 1px solid var(--glow-color);
+            padding: 16px 25px; font-size: 1rem; color: var(--glow-color); border: 1px solid var(--glow-color);
             background-color: rgba(0, 255, 255, 0.05); position: relative;
             transition: all 0.3s ease; text-transform: uppercase; overflow: hidden;
-            width: 90%;
-            max-width: 320px;
+            width: 90%; max-width: 320px;
         }
-
         .cybr-btn::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 80%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transform: skewX(-30deg); transition: left 0.7s ease-in-out;
         }
-
         .cybr-btn:hover::before { left: 150%; }
-        
-        .cybr-btn:hover {
-            box-shadow: 0 0 40px var(--glow-color); background-color: rgba(0, 255, 255, 0.2);
-            transform: translateY(-5px); color: #fff;
-        }
-
+        .cybr-btn:hover { box-shadow: 0 0 40px var(--glow-color); background-color: rgba(0, 255, 255, 0.2); transform: translateY(-5px); color: #fff; }
         .cybr-btn:active { transform: translateY(-2px) scale(0.98); box-shadow: 0 0 20px var(--glow-color); }
 
-        .dashboard-content {
-            display: flex; justify-content: center; align-items: center;
-            flex-wrap: wrap; gap: 20px;
-            width: 100%;
-        }
-        
+        .dashboard-content { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%; }
         .dashboard-card {
             background: linear-gradient(145deg, #1f2937, #111827); border: 2px solid var(--glow-color); 
-            width: 100%;
-            max-width: 400px; 
-            height: auto;
-            min-height: 250px;
-            padding: 20px;
-            border-radius: 8px; 
-            text-decoration: none; color: var(--text-color); cursor: pointer;
+            width: 100%; max-width: 400px; height: auto; min-height: 250px;
+            padding: 20px; border-radius: 8px; text-decoration: none; color: var(--text-color); cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-        
         .dashboard-content > * { animation: cardFadeIn 0.8s ease-out forwards; opacity: 0; }
         .dashboard-content > *:nth-child(2) { animation-delay: 0.2s; }
         @keyframes cardFadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .dashboard-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5);
-            border-color: var(--accent-color);
-        }
-        
-        .card-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s;
-        }
+        .dashboard-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 0 40px rgba(0, 255, 255, 0.7), inset 0 0 25px rgba(0, 255, 255, 0.5); border-color: var(--accent-color); }
+        .card-icon { font-size: 3.5rem; margin-bottom: 15px; color: var(--glow-color); transition: color 0.3s; }
         .dashboard-card:hover .card-icon { color: var(--accent-color); }
-
-        .dashboard-card h2 {
-            font-family: 'Orbitron', sans-serif; font-size: 1.5rem;
-             margin-bottom: 10px;
-            color: var(--glow-color); transition: color 0.3s; text-align: center;
-        }
+        .dashboard-card h2 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 10px; color: var(--glow-color); transition: color 0.3s; text-align: center; }
         .dashboard-card:hover h2 { color: var(--accent-color); }
         .dashboard-card p { font-size: 0.9rem; line-height: 1.5; text-align: center; }
 
@@ -240,105 +174,32 @@
             border: 1px solid var(--accent-color); border-radius: 5px; color: var(--accent-color);
             font-family: 'Orbitron', sans-serif; font-size: 0.9rem; cursor: pointer;
             transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255, 0, 193, 0.3);
-            width: 80%;
-            max-width: 300px;
+            width: 80%; max-width: 300px;
         }
-        .back-button:hover {
-            background-color: var(--accent-color); color: var(--dark-bg);
-            box-shadow: 0 0 25px var(--accent-color);
-        }
+        .back-button:hover { background-color: var(--accent-color); color: var(--dark-bg); box-shadow: 0 0 25px var(--accent-color); }
         .back-button:active { transform: scale(0.98); }
         
-        .footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 10px;
-            color: rgba(249, 250, 251, 0.6);
-            width: 100%;
-        }
-        .footer-logo img {
-            width: 45px;
-            height: auto;
-        }
-        .footer-text {
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-        .footer-text p {
-            margin: 0;
-        }
+        .footer { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; color: rgba(249, 250, 251, 0.6); width: 100%; }
+        .footer-logo img { width: 45px; height: auto; }
+        .footer-text { font-size: 0.85rem; line-height: 1.4; }
+        .footer-text p { margin: 0; }
 
-        /* =============================================== */
-        /* Media Query untuk layar besar (Desktop)         */
-        /* =============================================== */
         @media (min-width: 768px) {
-            .page {
-                gap: 2.5rem;
-            }
-            
-            .top-left-brand {
-                font-size: 2.5rem;
-            }
-
-            .header-box {
-                max-width: 900px;
-            }
-
-            .header-text {
-                font-size: 1.5rem;
-            }
-            .logo-container img {
-                width: 450px;
-                max-width: 450px;
-            }
-            .cybr-btn {
-                font-size: 1.3rem;
-                padding: 18px 50px;
-                width: auto;
-                max-width: none;
-            }
-            .dashboard-content {
-                gap: 50px;
-                flex-direction: row;
-            }
-            .dashboard-card {
-                width: 450px;
-                height: 300px;
-                padding: 30px;
-            }
-             .card-icon {
-                font-size: 4.5rem;
-            }
-            .dashboard-card h2 {
-                font-size: 2rem;
-            }
-             .dashboard-card p {
-                font-size: 1rem;
-            }
-            .back-button {
-                font-size: 1rem;
-                width: auto;
-                max-width: none;
-            }
-            
-            .footer {
-                position: absolute;
-                bottom: 20px;
-                left: 25px;
-                flex-direction: row;
-                text-align: left;
-                align-items: center;
-                gap: 20px;
-                width: auto;
-            }
-            .footer-logo img {
-                width: 55px;
-            }
-            .footer-text {
-                font-size: 0.9rem;
-            }
+            .page { gap: 2.5rem; }
+            .top-left-brand { font-size: 2.5rem; }
+            .header-box { max-width: 900px; }
+            .header-text { font-size: 1.5rem; }
+            .logo-container img { width: 450px; max-width: 450px; }
+            .cybr-btn { font-size: 1.3rem; padding: 18px 50px; width: auto; max-width: none; }
+            .dashboard-content { gap: 50px; flex-direction: row; }
+            .dashboard-card { width: 450px; height: 300px; padding: 30px; }
+            .card-icon { font-size: 4.5rem; }
+            .dashboard-card h2 { font-size: 2rem; }
+            .dashboard-card p { font-size: 1rem; }
+            .back-button { font-size: 1rem; width: auto; max-width: none; }
+            .footer { position: absolute; bottom: 20px; left: 25px; flex-direction: row; text-align: left; align-items: center; gap: 20px; width: auto; }
+            .footer-logo img { width: 55px; }
+            .footer-text { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -477,36 +338,12 @@
             }, 800);
         }
 
-        // Halaman 1 -> Halaman 2
-        loginBtn.addEventListener('click', () => {
-            applyPageTransition(loginPage, dashboardPage);
-        });
-
-        // Halaman 2 -> Halaman 1
-        backToLoginBtn.addEventListener('click', () => {
-            applyPageTransition(dashboardPage, loginPage); 
-        });
-
-        // Halaman 2 -> Halaman 3
-        presensiBtn.addEventListener('click', () => {
-            applyPageTransition(dashboardPage, presensiPage);
-        });
-
-        // Halaman 3 -> Halaman 2
-        backToDashboardBtn.addEventListener('click', () => {
-            applyPageTransition(presensiPage, dashboardPage);
-        });
-        
-        // Halaman 3 -> Halaman 4
-        cadanganBtn.addEventListener('click', () => {
-            applyPageTransition(presensiPage, cadanganPage);
-        });
-        
-        // Halaman 4 -> Halaman 3
-        backToPresensiBtn.addEventListener('click', () => {
-            applyPageTransition(cadanganPage, presensiPage);
-        });
+        loginBtn.addEventListener('click', () => applyPageTransition(loginPage, dashboardPage));
+        backToLoginBtn.addEventListener('click', () => applyPageTransition(dashboardPage, loginPage));
+        presensiBtn.addEventListener('click', () => applyPageTransition(dashboardPage, presensiPage));
+        backToDashboardBtn.addEventListener('click', () => applyPageTransition(presensiPage, dashboardPage));
+        cadanganBtn.addEventListener('click', () => applyPageTransition(presensiPage, cadanganPage));
+        backToPresensiBtn.addEventListener('click', () => applyPageTransition(cadanganPage, presensiPage));
     </script>
-
-    </body>
+</body>
 </html>
