@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIBOSS - Terminal Operasional</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -131,7 +132,7 @@
 
         .header-text { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-color); text-shadow: 0 0 5px #000; letter-spacing: 2px; position: relative; z-index: 2; }
         .logo-container { line-height: 0; display: flex; justify-content: center; }
-        .logo-container img { width: 450px; max-width: 450px; height: auto; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color)); }
+        .logo-container img { width: 450px; max-width: 100%; /* Dibuat responsif */ height: auto; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 0 25px var(--glow-color)); }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         
         .cybr-btn {
@@ -153,7 +154,7 @@
         .dashboard-content { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 50px; flex-direction: row; width: 100%; }
         .dashboard-card {
             background: linear-gradient(145deg, #1f2937, #111827); border: 2px solid var(--glow-color); 
-            width: 450px; height: 300px;
+            width: 450px; max-width: 100%; /* Dibuat responsif */ height: 300px;
             padding: 30px; border-radius: 8px; text-decoration: none; color: var(--text-color); cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.3);
@@ -188,12 +189,24 @@
             text-align: left; 
             align-items: center; 
             gap: 20px; 
-            width: auto; 
+            width: auto; /* Dibiarkan auto agar pas */
+            max-width: 90%; /* Menghindari mentok di layar kecil */
             color: rgba(249, 250, 251, 0.6); 
         }
         .footer-logo img { width: 55px; height: auto; }
         .footer-text { font-size: 0.9rem; line-height: 1.4; }
         .footer-text p { margin: 0; }
+
+        /* Media query untuk layar kecil (HP) */
+        @media (max-width: 768px) {
+            .top-left-brand { font-size: 2rem; }
+            .logo-container img { width: 300px; }
+            .dashboard-content { gap: 20px; }
+            .dashboard-card { width: 100%; height: 250px; }
+            .dashboard-card h2 { font-size: 1.5rem; }
+            .footer { flex-direction: column; align-items: flex-start; text-align: left; gap: 10px; }
+            .footer-text { font-size: 0.8rem; }
+        }
     </style>
 </head>
 
@@ -201,6 +214,7 @@
     <div id="vanta-bg"></div>
     <div class="top-left-brand">SIBOSS</div>
     <div class="container">
+        
         <div id="login-page" class="page">
             <div class="header-box">
                 <div class="marquee-wrapper">
@@ -227,11 +241,13 @@
 
         <div id="dashboard-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
+                
                 <a id="manajemenBtn" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
                     <h2>MANAJEMEN BARANG</h2>
                     <p>Portal untuk peminjaman dan pengambilan barang.</p>
                 </a>
+                
                 <a id="presensiBtn" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-clipboard-check"></i></div>
                     <h2>PRESENSI KEBERSIHAN</h2>
@@ -256,6 +272,7 @@
             </div>
             <button class="back-button" id="backToDashboardBtn_manajemen">KEMBALI KE DASHBOARD</button>
         </div>
+        
         <div id="presensi-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://mahkamahagungnuril123-lgtm.github.io/absensi-kebersihan/" target="_blank" class="dashboard-card">
@@ -299,17 +316,17 @@
         // Ambil elemen halaman
         const loginPage = document.getElementById('login-page');
         const dashboardPage = document.getElementById('dashboard-page');
-        const manajemenPage = document.getElementById('manajemen-page'); // <-- DITAMBAHKAN
+        const manajemenPage = document.getElementById('manajemen-page'); 
         const presensiPage = document.getElementById('presensi-page');
         const cadanganPage = document.getElementById('cadangan-page');
         
         // Ambil elemen tombol
         const loginBtn = document.getElementById('loginBtn');
         const backToLoginBtn = document.getElementById('backToLoginBtn');
-        const manajemenBtn = document.getElementById('manajemenBtn'); // <-- DITAMBAHKAN
+        const manajemenBtn = document.getElementById('manajemenBtn'); 
         const presensiBtn = document.getElementById('presensiBtn');
         const backToDashboardBtn = document.getElementById('backToDashboardBtn');
-        const backToDashboardBtn_manajemen = document.getElementById('backToDashboardBtn_manajemen'); // <-- DITAMBAHKAN
+        const backToDashboardBtn_manajemen = document.getElementById('backToDashboardBtn_manajemen'); 
         const cadanganBtn = document.getElementById('cadanganBtn');
         const backToPresensiBtn = document.getElementById('backToPresensiBtn');
 
@@ -336,11 +353,11 @@
         presensiBtn.addEventListener('click', () => applyPageTransition(dashboardPage, presensiPage));
         backToDashboardBtn.addEventListener('click', () => applyPageTransition(presensiPage, dashboardPage));
         
-        manajemenBtn.addEventListener('click', () => applyPageTransition(dashboardPage, manajemenPage)); // <-- DITAMBAHKAN
-        backToDashboardBtn_manajemen.addEventListener('click', () => applyPageTransition(manajemenPage, dashboardPage)); // <-- DITAMBAHKAN
+        manajemenBtn.addEventListener('click', () => applyPageTransition(dashboardPage, manajemenPage)); 
+        backToDashboardBtn_manajemen.addEventListener('click', () => applyPageTransition(manajemenPage, dashboardPage)); 
 
         cadanganBtn.addEventListener('click', () => applyPageTransition(presensiPage, cadanganPage));
         backToPresensiBtn.addEventListener('click', () => applyPageTransition(cadanganPage, presensiPage));
     </script>
-    </body>
+</body>
 </html>
