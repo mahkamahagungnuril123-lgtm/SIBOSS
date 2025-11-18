@@ -251,8 +251,8 @@
                 
                 <a id="presensiBtn" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-clipboard-check"></i></div>
-                    <h2>PRESENSI KEBERSIHAN</h2>
-                    <p>Portal untuk melakukan presensi dan validasi tugas kebersihan.</p>
+                    <h2>PRESENSI</h2>
+                    <p>Portal untuk presensi kebersihan dan jaga malam.</p>
                 </a>
             </div>
             <button class="back-button" id="backToLoginBtn">KEMBALI KE GERBANG UTAMA</button>
@@ -274,7 +274,23 @@
             <button class="back-button" id="backToDashboardBtn_manajemen">KEMBALI KE DASHBOARD</button>
         </div>
         
-        <div id="presensi-page" class="page hidden page-effect-in-prepare">
+        <div id="presensi-selection-page" class="page hidden page-effect-in-prepare">
+            <div class="dashboard-content">
+                <a id="presensiKebersihanBtn" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <h2>PRESENSI KEBERSIHAN</h2>
+                    <p>Buka portal utama atau cadangan untuk presensi kebersihan.</p>
+                </a>
+                <a href="https://sites.google.com/view/mahkamahsyariyahstr?usp=sharing" target="_blank" class="dashboard-card">
+                    <div class="card-icon"><i class="fa-solid fa-moon"></i></div>
+                    <h2>PRESENSI JAGA MALAM</h2>
+                    <p>Buka portal untuk presensi jaga malam.</p>
+                </a>
+            </div>
+            <button class="back-button" id="backToDashboardBtn_presensiSelection">KEMBALI KE DASHBOARD</button>
+        </div>
+        
+        <div id="presensi-kebersihan-page" class="page hidden page-effect-in-prepare">
             <div class="dashboard-content">
                 <a href="https://mahkamahagungnuril123-lgtm.github.io/absensi-kebersihan/" target="_blank" class="dashboard-card">
                     <div class="card-icon"><i class="fa-solid fa-clipboard-list"></i></div>
@@ -287,7 +303,7 @@
                     <p>Gunakan portal cadangan jika portal utama bermasalah.</p>
                 </a>
             </div>
-            <button class="back-button" id="backToDashboardBtn">KEMBALI KE DASHBOARD</button>
+            <button class="back-button" id="backToPresensiSelectionBtn">KEMBALI KE PILIHAN PRESENSI</button>
         </div>
 
         <div id="cadangan-page" class="page hidden page-effect-in-prepare">
@@ -318,18 +334,24 @@
         const loginPage = document.getElementById('login-page');
         const dashboardPage = document.getElementById('dashboard-page');
         const manajemenPage = document.getElementById('manajemen-page'); 
-        const presensiPage = document.getElementById('presensi-page');
+        const presensiSelectionPage = document.getElementById('presensi-selection-page'); // Halaman baru
+        const presensiKebersihanPage = document.getElementById('presensi-kebersihan-page'); // Halaman lama yg ganti nama
         const cadanganPage = document.getElementById('cadangan-page');
         
         // Ambil elemen tombol
         const loginBtn = document.getElementById('loginBtn');
         const backToLoginBtn = document.getElementById('backToLoginBtn');
         const manajemenBtn = document.getElementById('manajemenBtn'); 
-        const presensiBtn = document.getElementById('presensiBtn');
-        const backToDashboardBtn = document.getElementById('backToDashboardBtn');
         const backToDashboardBtn_manajemen = document.getElementById('backToDashboardBtn_manajemen'); 
-        const cadanganBtn = document.getElementById('cadanganBtn');
-        const backToPresensiBtn = document.getElementById('backToPresensiBtn');
+
+        const presensiBtn = document.getElementById('presensiBtn'); // Tombol di Dashboard
+        const backToDashboardBtn_presensiSelection = document.getElementById('backToDashboardBtn_presensiSelection'); // Tombol di Hal. Pilihan Presensi
+        
+        const presensiKebersihanBtn = document.getElementById('presensiKebersihanBtn'); // Tombol di Hal. Pilihan Presensi
+        const backToPresensiSelectionBtn = document.getElementById('backToPresensiSelectionBtn'); // Tombol di Hal. Presensi Kebersihan
+
+        const cadanganBtn = document.getElementById('cadanganBtn'); // Tombol di Hal. Presensi Kebersihan
+        const backToPresensiBtn = document.getElementById('backToPresensiBtn'); // Tombol di Hal. Cadangan
 
         // Fungsi transisi halaman
         function applyPageTransition(currentPage, nextPage) {
@@ -351,14 +373,25 @@
         loginBtn.addEventListener('click', () => applyPageTransition(loginPage, dashboardPage));
         backToLoginBtn.addEventListener('click', () => applyPageTransition(dashboardPage, loginPage));
         
-        presensiBtn.addEventListener('click', () => applyPageTransition(dashboardPage, presensiPage));
-        backToDashboardBtn.addEventListener('click', () => applyPageTransition(presensiPage, dashboardPage));
-        
+        // Alur Manajemen (Tidak berubah)
         manajemenBtn.addEventListener('click', () => applyPageTransition(dashboardPage, manajemenPage)); 
         backToDashboardBtn_manajemen.addEventListener('click', () => applyPageTransition(manajemenPage, dashboardPage)); 
 
-        cadanganBtn.addEventListener('click', () => applyPageTransition(presensiPage, cadanganPage));
-        backToPresensiBtn.addEventListener('click', () => applyPageTransition(cadanganPage, presensiPage));
+        // Alur Presensi (BARU)
+        // Dashboard -> Pilihan Presensi
+        presensiBtn.addEventListener('click', () => applyPageTransition(dashboardPage, presensiSelectionPage));
+        // Pilihan Presensi -> Dashboard
+        backToDashboardBtn_presensiSelection.addEventListener('click', () => applyPageTransition(presensiSelectionPage, dashboardPage));
+        
+        // Pilihan Presensi -> Presensi Kebersihan (Utama/Cadangan)
+        presensiKebersihanBtn.addEventListener('click', () => applyPageTransition(presensiSelectionPage, presensiKebersihanPage));
+        // Presensi Kebersihan -> Pilihan Presensi
+        backToPresensiSelectionBtn.addEventListener('click', () => applyPageTransition(presensiKebersihanPage, presensiSelectionPage));
+
+        // Presensi Kebersihan -> Cadangan
+        cadanganBtn.addEventListener('click', () => applyPageTransition(presensiKebersihanPage, cadanganPage));
+        // Cadangan -> Presensi Kebersihan
+        backToPresensiBtn.addEventListener('click', () => applyPageTransition(cadanganPage, presensiKebersihanPage));
     </script>
 </body>
 </html>
